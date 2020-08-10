@@ -25,5 +25,10 @@ class Documento extends Model
         return $this->belongsTo('App\CategoriaDocumento');
     }
 
+    public function comentario()
+    {
+        return $this->hasMany('App\Comentario');
+    }
+
 
 }

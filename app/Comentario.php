@@ -23,4 +23,10 @@ class Comentario extends Model
     {
         return $this->hasMany('App\Comentario');
     }
+
+    public function documento()
+    {
+        return $this->belongsTo('App\Documento');
+    }
+
 }
