@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CategoriaAnuncioController extends Controller
 {
     public function index(){
-        $datos['categorias']=CategoriaAnuncio::paginate(5);
+        $datos['categorias']=CategoriaAnuncio::paginate();
 
         return view('Publicaciones.GestionarCategoriaAnuncio.indexCategoriaAnuncio',$datos);
     }
@@ -23,7 +23,7 @@ class CategoriaAnuncioController extends Controller
 
         CategoriaAnuncio::insert($datosCategoria);
 
-        return response()->json($datosCategoria);
+        return redirect('categoriaanuncio');
     }
 
     public function destroy ($id){
@@ -35,5 +35,12 @@ class CategoriaAnuncioController extends Controller
     public function edit($id){
         $categoria= CategoriaAnuncio::findOrFail($id);
         return view('Publicaciones.GestionarCategoriaAnuncio.editCategoriaAnuncio',compact('categoria'));
+    }
+
+    public function update(Request $request, $id){
+        $datosCategoria=request()->except(['_token','_method']);
+        CategoriaAnuncio::where('cat_id','=',$id)->update($datosCategoria);
+
+        return redirect('categoriaanuncio');
     }
 }

@@ -1,7 +1,18 @@
 @extends('layout')
 
 @section('content')
-<div style="margin: 50px 20px 20px 20px">
+{{-- <div style="margin: 50px 20px 20px 20px"> --}}
+    <div class="container" style="padding: 50px 20px 20px 0px">
+        <h1 class="text-center">Categoría de Anuncios</h1>
+        <br>
+        <a href="{{ url('/categoriaanuncio/create') }}" class="btn btn-success">
+            Agregar Categoría de Anuncio +
+        </a> 
+    </div>
+    <div class="container">
+    {{-- <div style="margin: 50px 20px 20px 20px"> --}}
+    
+    {{-- </div> --}}
     <table class="table">
         <thead>
           <tr class="bg-danger">

@@ -1,15 +1,16 @@
 @extends('layout')
 
 @section('content')
-<div style="height: 20px"></div>
-<div class="card card-danger">
+<div class="container">
+  <div class="card card-danger">
     <div class="card-header">
       <h3 class="card-title">Editar Categoría de Anuncio</h3>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-  <form action="{{ url('/categoriaanuncio') }}" role="form" method="POST">
+  <form action="{{ url('/categoriaanuncio/'.$categoria->cat_id) }}" role="form" method="POST">
     {{ csrf_field() }}
+    {{ method_field('PATCH') }}
       <div class="card-body">
         <div class="form-group">
           <label for="cat_nombre">Nombre</label>
@@ -30,4 +31,6 @@
     </form>
   </div>
   <!-- /.card -->
+</div>
+
 @endsection()
