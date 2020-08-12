@@ -27,7 +27,7 @@ class Documento extends Model
 
     public function comentario()
     {
-        return $this->hasMany('App\Comentario');
+        return $this->hasMany('App\Comentario', 'com_doc');
     }
 
 

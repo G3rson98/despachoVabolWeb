@@ -29,3 +29,5 @@ Route::group(['prefix'=>'Abogado'], function (){
 /* RUTAS DANIEL ROBLES*/
 
 Route::resource('categoriadocumento', 'CategoriaDocumentoController');
+Route::resource('comentario', 'ComentarioController');
+Route::get('documento/{id}', 'DocumentoController@show');
