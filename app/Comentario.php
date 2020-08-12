@@ -26,7 +26,7 @@ class Comentario extends Model
 
     public function documento()
     {
-        return $this->belongsTo('App\Documento');
+        return $this->belongsTo('App\Documento','com_doc');
     }
 
 }

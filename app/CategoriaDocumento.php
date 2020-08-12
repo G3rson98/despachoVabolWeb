@@ -10,6 +10,8 @@ class CategoriaDocumento extends Model
     public $timestamps = false;
     protected $primaryKey = 'catdoc_id';
 
+    protected $fillable = ['catdoc_nombre', 'catdoc_descripcion'];
+
     public function documento()
     {
         return $this->hasMany('App\Documento');

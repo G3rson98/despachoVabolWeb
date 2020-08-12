@@ -3,87 +3,55 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\CategoriaDocumento;
 
 class CategoriaDocumentoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        return view('prueba');
+        $categoriasDocumento = CategoriaDocumento::all();
+        return view('CategoriaDocumento.index',compact('categoriasDocumento'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('CategoriaDocumento.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $categoriaDocumento = new CategoriaDocumento();
+        $categoriaDocumento->catdoc_nombre = $request->input('catdoc_nombre');
+        $categoriaDocumento->catdoc_descripcion = $request->input('catdoc_descripcion');
+        $categoriaDocumento->save();
+
+        return redirect()->route('categoriadocumento.index');
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $categoriaDocumento=CategoriaDocumento::find($id);
+        return view('CategoriaDocumento.edit',compact('categoriaDocumento'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $categoriaDocumento = CategoriaDocumento::find($id);
+        $categoriaDocumento->update($request->all());
+        return redirect()->route('categoriadocumento.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
-    }
-
-    public function prueba()
-    {
-        return view('prueba');
+        $categoriaDocumento = CategoriaDocumento::find($id);
+        $categoriaDocumento->delete();
+        return redirect()->route('categoriadocumento.index');
     }
 }
