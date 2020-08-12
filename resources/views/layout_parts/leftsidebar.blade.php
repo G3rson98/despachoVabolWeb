@@ -69,7 +69,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('categoriadocumento.index') }}" class="nav-link">
                   <i class="far fa-folder-open nav-icon"></i>
                   <p>Categorías Documento</p>
                 </a>
