@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Abogado;
 
 class AbogadoController extends Controller
 {
@@ -13,7 +14,8 @@ class AbogadoController extends Controller
      */
     public function index()
     {
-        //
+        $abogados= Abogado::all();
+        return view('Usuario.GestionarAbogado.index',['Abogados'=>$abogados]);
     }
 
     /**
@@ -23,7 +25,7 @@ class AbogadoController extends Controller
      */
     public function create()
     {
-        //
+        return view('Usuario.GestionarAbogado.create');
     }
 
     /**
