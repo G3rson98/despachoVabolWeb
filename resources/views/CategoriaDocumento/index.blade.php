@@ -30,7 +30,7 @@
                     @if($categoriasDocumento->count())  
                         @foreach($categoriasDocumento as $catdoc)  
                             <tr>
-                                <td>{{$catdoc->catdoc_id}}</td>
+                                <td scope="row">{{ $loop->iteration }}</td>
                                 <td>{{$catdoc->catdoc_nombre}}</td>
                                 <td>{{$catdoc->catdoc_descripcion}}</td>
                                 <td>
