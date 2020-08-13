@@ -35,8 +35,11 @@ class AbogadoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {        
+        $abogado= new Abogado($request->all());             
+        $fecha="".$request->get('abg_año')."-".$request->get('abg_mes')."-".$request->get('abg_dia');
+        $abogado->abg_fnacimiento=$fecha;
+        $abogado->save();
     }
 
     /**
@@ -57,8 +60,11 @@ class AbogadoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   $Abogado= new Abogado();
+        $Abogado=Abogado::findOrFail($id);
+        return view('Usuario.GestionarAbogado.edit',['Abogado'=>$Abogado]);
+        //echo(substr($Abogado->abg_fnacimiento,5,2));
+        //echo($Abogado);
     }
 
     /**

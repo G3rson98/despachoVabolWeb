@@ -14,7 +14,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
+                <table id="example1" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
                     <thead>
                         <tr role="row">
                             <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending">Ci</th>
@@ -27,9 +27,11 @@
                             <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Nro de colegio de abogados</th>
                             <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Nro de min de justicia</th>
                             <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Nro de registro en la corte</th>
+                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @csrf
                         @foreach ($Abogados as $Abogado)
                         <tr role="row" class="odd">
                             <td class="" tabindex="0">{{$Abogado->abg_ci}}</td>
@@ -41,7 +43,13 @@
                             <td class="" tabindex="0">{{$Abogado->abg_genero}}</td>
                             <td class="" tabindex="0">{{$Abogado->abg_nrocolabogados}}</td>
                             <td class="" tabindex="0">{{$Abogado->abg_nrominjusticia}}</td>
-                            <td class="" tabindex="0">{{$Abogado->abg_numregcorte}}</td>
+                            <td class="" tabindex="0">{{$Abogado->abg_numregcorte}}</td>                            
+                            <td class="" tabindex="0">
+                                <div class="btn-group btn-group-sm">
+                                    <a href="{{url('Abogado/edit',$Abogado->abg_ci)}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                    <a href="{{url('abogado/delete',$Abogado->abg_ci)}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                </div>
+                            </td>                            
                         </tr>
                         @endforeach
                     </tbody>
@@ -57,6 +65,7 @@
                             <th rowspan="1" colspan="1">Nro de colegio de abogados</th>
                             <th rowspan="1" colspan="1">Nro de min de justicia</th>
                             <th rowspan="1" colspan="1">Nro de registro en la corte</th>
+                            <th rowspan="1" colspan="1">Acciones</th>
                         </tr>
                     </tfoot>
                 </table>
