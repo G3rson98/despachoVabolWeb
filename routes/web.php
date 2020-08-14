@@ -20,9 +20,18 @@ Route::prefix('Abogado')->group( function (){
     Route::get('edit/{id}','AbogadoController@edit')->name('abogado.edit');
     Route::put('update/{id}','AbogadoController@update')->name('abogado.update');
     Route::get('delete/{id}','AbogadoController@delete')->name('abogado.delete');
-    Route::delete('destroy/{id}','AbogadoController@destroy')->name('abogado.destroy');
+    Route::get('destroy/{id}','AbogadoController@destroy')->name('abogado.destroy');
 });
-
+Route::prefix('Cliente')->group( function (){
+    Route::get('index', 'ClienteController@index')->name('cliente.index');
+    Route::get('create', 'ClienteController@create')->name('cliente.create');
+    Route::get('show/{id}','ClienteController@show')->name('cliente.show');
+    Route::post('store', 'ClienteController@store')->name('cliente.store');
+    Route::get('edit/{id}','ClienteController@edit')->name('cliente.edit');
+    Route::put('update/{id}','ClienteController@update')->name('cliente.update');
+    Route::get('delete/{id}','ClienteController@delete')->name('cliente.delete');
+    Route::get('destroy/{id}','ClienteController@destroy')->name('cliente.destroy');
+});
 
 /* RUTAS DANIEL ROBLES*/
 
