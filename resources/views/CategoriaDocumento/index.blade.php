@@ -9,7 +9,7 @@
     <br>
     <br>
 
-    <div class="card">
+    <div class="card ">
 
         <div class="card-header">
             <h3 class="card-title">Lista de categorías de documentos</h3>
@@ -18,12 +18,11 @@
         <div class="card-body">
             <table class="table table-bordered">
                 <thead>                  
-                    <tr>
+                    <tr class="bg-primary">
                         <th style="width: 10px">#</th>
                         <th>Nombre</th>
                         <th>Descripción</th>
                         <th>Operaciones</th>
-                        <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,15 +33,13 @@
                                 <td>{{$catdoc->catdoc_nombre}}</td>
                                 <td>{{$catdoc->catdoc_descripcion}}</td>
                                 <td>
-                                <a href="#" class="btn btn-info">Ver</a>
-                                <a href="{{ route('categoriadocumento.edit', $catdoc->catdoc_id) }}" class="btn btn-primary">Editar</a>
-                                </td>
-                                <td>
-                                <form method="post" action="{{route('categoriadocumento.destroy', $catdoc->catdoc_id)}}">
-                                    {{csrf_field()}}
-                                    {{method_field('DELETE')}}
-                                    <button  class="btn btn-danger" type="submit">Eliminar</button>
-                                </form>
+                                    <a href="#" class="btn btn-info">Ver</a>
+                                    <a href="{{ route('categoriadocumento.edit', $catdoc->catdoc_id) }}" class="btn btn-primary">Editar</a>
+                                    <form method="post" action="{{route('categoriadocumento.destroy', $catdoc->catdoc_id)}}" style="display: inline">
+                                        {{csrf_field()}}
+                                        {{method_field('DELETE')}}
+                                        <button  class="btn btn-danger" type="submit">Eliminar</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
