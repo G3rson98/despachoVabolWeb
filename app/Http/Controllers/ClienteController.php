@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Cliente;
 
 class ClienteController extends Controller
 {
@@ -13,7 +14,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        $cliente= Cliente::all();
+        return view('Usuario.GestionarCliente.index',['Clientes'=>$cliente]);
     }
 
     /**
@@ -23,7 +25,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        return view('Usuario.GestionarCliente.create');
     }
 
     /**
@@ -34,7 +36,9 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cliente= new Cliente($request->all());                     
+        $cliente->save();
+        return redirect()->route('Cliente.index');
     }
 
     /**
@@ -56,7 +60,9 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cliente= new Cliente();
+        $Abogado=Cliente::findOrFail($id);
+        return view('Usuario.GestionarCliente.edit',['Cliente'=>$Abogado]);
     }
 
     /**
@@ -68,7 +74,19 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cliente= new Cliente();
+        $cliente=Cliente::findOrFail($id);
+        $cliente->abg_nombre = $request['abg_nombre'];
+        $cliente->abg_apellidop = $request ['abg_apellidop'];
+        $cliente->abg_apellidom = $request['abg_apellidom'];
+        $cliente->abg_especialidad = $request['abg_especialidad'];
+        $cliente->abg_celular = $request['abg_celular'];               
+        $cliente->abg_genero = $request['abg_genero'];
+        $cliente->abg_nrocolabogados = $request['abg_nrocolabogados'];
+        $cliente->abg_nrominjusticia = $request['abg_nrominjusticia'];
+        $cliente->abg_numregcorte = $request['abg_numregcorte'];
+        $cliente->save();
+        return redirect()->route('cliente.index');
     }
 
     /**
@@ -79,6 +97,9 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cliente= new Cliente();
+        $cliente=Cliente::findOrFail($id);
+        $cliente->delete();
+        redirect()->route('cliente.index');
     }
 }
