@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Abogado;
 
 class AbogadoController extends Controller
 {
@@ -13,7 +14,8 @@ class AbogadoController extends Controller
      */
     public function index()
     {
-        //
+        $abogados= Abogado::all();
+        return view('Usuario.GestionarAbogado.index',['Abogados'=>$abogados]);
     }
 
     /**
@@ -23,7 +25,7 @@ class AbogadoController extends Controller
      */
     public function create()
     {
-        //
+        return view('Usuario.GestionarAbogado.create');
     }
 
     /**
@@ -33,8 +35,12 @@ class AbogadoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {        
+        $abogado= new Abogado($request->all());             
+        $fecha="".$request['abg_ano']."-".$request['abg_mes']."-".$request['abg_dia'];
+        $abogado->abg_fnacimiento=$fecha;
+        $abogado->save();
+        return redirect()->route('abogado.index');
     }
 
     /**
@@ -55,8 +61,11 @@ class AbogadoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   $Abogado= new Abogado();
+        $Abogado=Abogado::findOrFail($id);
+        return view('Usuario.GestionarAbogado.edit',['Abogado'=>$Abogado]);
+        //echo(substr($Abogado->abg_fnacimiento,5,2));
+        //echo($Abogado);
     }
 
     /**
@@ -68,7 +77,21 @@ class AbogadoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Abogado= new Abogado();
+        $Abogado=Abogado::find($id);
+        $Abogado->abg_nombre = $request['abg_nombre'];
+        $Abogado->abg_apellidop = $request ['abg_apellidop'];
+        $Abogado->abg_apellidom = $request['abg_apellidom'];
+        $Abogado->abg_especialidad = $request['abg_especialidad'];
+        $Abogado->abg_celular = $request['abg_celular'];
+        $fecha="".$request['abg_ano']."-".$request['abg_mes']."-".$request['abg_dia'];
+        $Abogado->abg_fnacimiento=$fecha;
+        $Abogado->abg_genero = $request['abg_genero'];
+        $Abogado->abg_nrocolabogados = $request['abg_nrocolabogados'];
+        $Abogado->abg_nrominjusticia = $request['abg_nrominjusticia'];
+        $Abogado->abg_numregcorte = $request['abg_numregcorte'];
+        $Abogado->update($Abogado);
+        return redirect()->route('abogado.index');
     }
 
     /**
@@ -79,6 +102,9 @@ class AbogadoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Abogado= new Abogado();
+        $Abogado=Abogado::findOrFail($id);
+        $Abogado->delete();
+        redirect()->route('Abogado.index');
     }
 }
