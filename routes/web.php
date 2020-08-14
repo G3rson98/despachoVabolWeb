@@ -39,4 +39,4 @@ Route::prefix('Cliente')->group( function (){
 
 Route::resource('categoriadocumento', 'CategoriaDocumentoController');
 Route::resource('comentario', 'ComentarioController');
-Route::get('documento/{id}', 'DocumentoController@show');
+Route::get('documento/{id}', 'DocumentoController@show')->name('documento.show');

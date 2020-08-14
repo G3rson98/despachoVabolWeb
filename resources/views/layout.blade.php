@@ -326,5 +326,24 @@
 <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/dist/js/adminlte.min.js"></script>
+
+<script>
+
+  
+  $('#edit').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) 
+      var com_id = button.data('myid') 
+      var com_contenido = button.data('mycontent') 
+      var com_doc = button.data('mydoc') 
+      var com_usuario = button.data('myuser') 
+      console.log(com_contenido);
+
+      var modal = $(this)
+      modal.find('.modal-body #com_contenido').val(com_contenido);
+      modal.find('.modal-body #com_id').val(com_id);
+      modal.find('.modal-body #com_doc').val(com_doc);
+      modal.find('.modal-body #com_usuario').val(com_usuario);
+  })
+</script>
 </body>
 </html>

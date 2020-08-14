@@ -65,8 +65,8 @@
         </div>
     </div>
 
-    <div class="card direct-chat direct-chat-warning">
-        <div class="card-header">
+    <div class="card direct-chat direct-chat-warning card-warning">
+        <div class="card-header ">
             <h3 class="card-title">Comentarios</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -84,8 +84,16 @@
                         <img class="direct-chat-img" src="/dist/img/user1-128x128.jpg" alt="message user image">
                         <div class="direct-chat-text">
                             {{$comdoc->com_contenido}}
+                            <button href="#" id="edit_item" class="btn" data-myid="{{$comdoc->com_id}}" data-mycontent="{{$comdoc->com_contenido}}" data-mydoc="{{$comdoc->com_doc}}" data-myuser="{{$comdoc->com_usuario}}" data-toggle="modal" data-target="#edit"><i class="fas fa-edit"></i></button>
+                            <form method="post" action="{{route('comentario.destroy', $comdoc->com_id)}}" style="display: inline">
+                                    {{csrf_field()}}
+                                    {{method_field('DELETE')}}
+                                    <button  class="btn" type="submit"><i class="fas fa-trash-alt"></i></i></button>
+                            </form>
+                            
                         </div>
                     </div>
+                    
                 @endforeach
             </div>
             <div class="card-footer">
@@ -103,4 +111,40 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar comentario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form method="POST" action="{{ route('comentario.update', 'test') }}" role="form">
+            {{method_field('patch')}}
+            {{ csrf_field() }}
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="catdoc_nombre">Contenido</label>
+                    <textarea  class="form-control" name="com_contenido" id="com_contenido"></textarea>
+                </div>
+                    <input type="hidden" class="form-control" name="com_id" id="com_id">
+                    <input type="hidden" class="form-control" name="com_doc" id="com_doc">
+                    <input type="hidden" class="form-control" name="com_usuario" id="com_usuario">
+                    <button type="submit" class="btn btn-primary btn-bottom-right">Editar</button>
+            </div>
+                
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection()
