@@ -2,18 +2,16 @@
 
 @section('content')
 {{-- <div style="margin: 50px 20px 20px 20px"> --}}
-    <div class="container" style="padding: 50px 20px 20px 0px">
-        <h1 class="text-center">Categoría de Anuncios</h1>
+    <div class="container" style="padding: 30px 20px 20px 0px">
+        <h1 class="text-center">Categorías de Anuncios</h1>
         <br>
         <a href="{{ url('/categoriaanuncio/create') }}" class="btn btn-success">
             Agregar Categoría de Anuncio +
         </a> 
     </div>
     <div class="container">
-    {{-- <div style="margin: 50px 20px 20px 20px"> --}}
-    
     {{-- </div> --}}
-    <table class="table">
+    <table class="table table-hover">
         <thead>
           <tr class="bg-danger">
             <th scope="col">#</th>
@@ -32,7 +30,7 @@
                     <a href="{{url('/categoriaanuncio/'.$categoria->cat_id.'/edit')}}" class="btn btn-primary">
                         Editar
                     </a>
-                    <form action="{{ url('/categoriaanuncio/'.$categoria->cat_id) }}" method="POST">
+                    <form action="{{ url('/categoriaanuncio/'.$categoria->cat_id) }}" method="POST" style="display: inline">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                         <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que desea eliminar la categoría?');">Borrar</button>
