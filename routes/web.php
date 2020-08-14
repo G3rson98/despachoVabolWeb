@@ -9,7 +9,9 @@ Route::get('/', function () {
 
 
 /* RUTAS CAMILA STEFANIE YACOB*/
-
+Route::resource('categoriaanuncio', 'CategoriaAnuncioController');
+Route::resource('anuncio', 'AnuncioController');
+Route::resource('solicitudcontacto', 'SolicitudContactoController');
 
 /* RUTAS GERSON OLIVA*/
 Route::group(['prefix'=>'Abogado'], function (){
