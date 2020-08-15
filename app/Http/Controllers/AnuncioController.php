@@ -25,12 +25,17 @@ class AnuncioController extends Controller
 
     public function store(Request $request)
     {
-        $datosAnuncio = request()->except('_token');
-
-        // Anuncio::insert($datosAnuncio);
-
-        // return redirect('anuncio');
-        return response()->json($datosAnuncio);
+        $anuncio = new Anuncio();
+        $anuncio->anu_titulo = $request->input('anu_titulo');
+        $anuncio->anu_contenido = $request->input('anu_contenido');
+        $anuncio->anu_abogado = $request->input('anu_abogado');
+        $anuncio->anu_categoria = $request->input('anu_categoria');
+        $anuncio->anu_estado = 1;
+        $anuncio->anu_fechapub = date('Y-m-d');
+        date_default_timezone_set("America/La_Paz");
+        $anuncio->anu_horapub = date("G:i:s");
+        $anuncio->save();
+        return redirect('anuncio');
     }
 
     public function destroy($id)
