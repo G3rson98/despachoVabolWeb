@@ -11,6 +11,7 @@ Route::get('/', function () {
 /* RUTAS CAMILA STEFANIE YACOB*/
 Route::resource('categoriaanuncio', 'CategoriaAnuncioController');
 Route::resource('anuncio', 'AnuncioController');
+Route::get('/anuncio/{id}/estado', 'AnuncioController@editEstado');
 Route::resource('solicitudcontacto', 'SolicitudContactoController');
 
 /* RUTAS GERSON OLIVA*/
