@@ -25,8 +25,8 @@ class LoginController extends Controller
             'password' => $usu_contrasena,
             'email' => $usu_email
         ))){            
-            //return redirect()->route('abogado.index');
-            return auth()->user()->email;
+            return redirect()->route('abogado.index');
+            //return auth()->user()->email;
         }
             return back()
             ->withErrors(['email' => 'Estas credenciales no concuerdan con nuestros registros'])

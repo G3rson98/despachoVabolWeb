@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/','Auth\LoginController@showLoginForm');
+Route::get('/LoginForm','Auth\LoginController@showLoginForm');
 
 
 /* RUTAS CAMILA STEFANIE YACOB*/
@@ -14,7 +14,7 @@ Route::get('/anuncio/{id}/estado', 'AnuncioController@editEstado');
 Route::resource('solicitudcontacto', 'SolicitudContactoController');
 Route::get('/solicitudcontacto/{id}/estado', 'SolicitudContactoController@editEstado');
 
-Route::get('/home', 'LandingController@getView');
+Route::get('/', 'LandingController@getView');
 
 /* RUTAS GERSON OLIVA*/
 Route::prefix('Abogado')->group( function (){
@@ -37,7 +37,6 @@ Route::prefix('Cliente')->group( function (){
     Route::get('delete/{id}','ClienteController@delete')->name('cliente.delete');
     Route::get('destroy/{id}','ClienteController@destroy')->name('cliente.destroy');
 });
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('login','Auth\LoginController@login')->name('login');
 

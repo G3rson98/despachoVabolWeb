@@ -51,7 +51,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a href="{{ url('/anuncio') }}" class="nav-link">Login</a>
+                            <a href="{{ url('/LoginForm') }}" class="nav-link">Login</a>
                         </li>
                         <li class="nav-item active">
                             <a href="{{ url('/anuncio') }}" class="nav-link">About us</a>
