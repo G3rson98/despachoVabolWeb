@@ -6,62 +6,77 @@
     
     <div class="card card-primary card-outline">
         <div class="card-header">
-            <h3 class="card-title">Read Mail</h3>
-
-            <div class="card-tools">
-            <a href="#" class="btn btn-tool" data-toggle="tooltip" title="Previous"><i class="fas fa-chevron-left"></i></a>
-            <a href="#" class="btn btn-tool" data-toggle="tooltip" title="Next"><i class="fas fa-chevron-right"></i></a>
-            </div>
+            <h3 class="card-title">Documento</h3>
         </div>
-        <!-- /.card-header -->
         <div class="card-body p-0">
-            <div class="mailbox-read-info">
-                <h5>Message Subject Is Placed Here</h5>
-                <h6>From: support@adminlte.io
-                    <span class="mailbox-read-time float-right">15 Feb. 2015 11:03 PM</span></h6>
-            </div>
-            <!-- /.mailbox-read-info -->
             <div class="mailbox-controls with-border text-center">
-        
-            <!-- /.mailbox-controls -->
                 <div class="mailbox-read-message">
-                    <p>Hello John,</p>
+                    <section class="content">
 
-                    <p>Keffiyeh blog actually fashion axe vegan, irony biodiesel. Cold-pressed hoodie chillwave put a bird
-                        on it aesthetic, bitters brunch meggings vegan iPhone. Dreamcatcher vegan scenester mlkshk. Ethical
-                        master cleanse Bushwick, occupy Thundercats banjo cliche ennui farm-to-table mlkshk fanny pack
-                        gluten-free. Marfa butcher vegan quinoa, bicycle rights disrupt tofu scenester chillwave 3 wolf moon
-                        asymmetrical taxidermy pour-over. Quinoa tote bag fashion axe, Godard disrupt migas church-key tofu
-                        blog locavore. Thundercats cronut polaroid Neutra tousled, meh food truck selfies narwhal American
-                        Apparel.</p>
+                    <!-- Default box -->
+                    <div class="card card-solid">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-sm-6">
+                                    <h3 class="d-inline-block d-sm-none">Título:  {{$documento[0]->doc_titulo}} </h3>
+                                        <div class="col-12">
+                                            @if($extensionArchivo === 'pdf')
+                                            <img src="{{asset('storage/upload/imagenPDF.png')}}" class="product-image" style="width:400px; height:500px;" >
+                                            @elseif($extensionArchivo === 'docx')
+                                            <img src="{{asset('storage/upload/imagenWord.svg.png')}}" class="product-image" style="width:500px; height:500px;" >
+                                            @elseif($extensionArchivo === 'rar')
+                                            <img src="{{asset('storage/upload/imagenRar.webp')}}" class="product-image" style="width:500px; height:500px;" >
+                                            @elseif($extensionArchivo === 'txt')
+                                            <img src="{{asset('storage/upload/imagenTxt.png')}}" class="product-image" style="width:500px; height:500px;" >
+                                            @elseif($extensionArchivo === 'xlsx')
+                                            <img src="{{asset('storage/upload/imagenExcel.png')}}" class="product-image" style="width:500px; height:500px;" >
+                                            @elseif($extensionArchivo === 'ppt')
+                                            <img src="{{asset('storage/upload/imagenPpt.png')}}" class="product-image" style="width:500px; height:500px;" >
+                                            @elseif($extensionArchivo === 'jpg' )
+                                            <img src="{{asset('storage/'.$documento[0]->doc_url)}}" class="product-image" style="width:500px; height:500px;" >
+                                            @elseif($extensionArchivo === 'png' )
+                                            <img src="{{asset('storage/'.$documento[0]->doc_url)}}" class="product-image" style="width:500px; height:500px;" >
+                                            @elseif($extensionArchivo === 'jpeg' )
+                                            <img src="{{asset('storage/'.$documento[0]->doc_url)}}" class="product-image" style="width:500px; height:500px;" >
+                                            @elseif($extensionArchivo === 'webp' )
+                                            <img src="{{asset('storage/'.$documento[0]->doc_url)}}" class="product-image" style="width:500px; height:500px;" >
+                                            @else
+                                            <img src="{{asset('storage/upload/imagenFile.svg')}}" class="product-image" style="width:500px; height:500px;" >
+                                            @endif
+                                        </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <h3 class="my-3">Título:  {{$documento[0]->doc_titulo}}</h3>
+                                    <p>Descripción: {{$documento[0]->doc_descripcion}}</p>
 
-                    <p>Raw denim McSweeney's bicycle rights, iPhone trust fund quinoa Neutra VHS kale chips vegan PBR&amp;B
-                        literally Thundercats +1. Forage tilde four dollar toast, banjo health goth paleo butcher. Four dollar
-                        toast Brooklyn pour-over American Apparel sustainable, lumbersexual listicle gluten-free health goth
-                        umami hoodie. Synth Echo Park bicycle rights DIY farm-to-table, retro kogi sriracha dreamcatcher PBR&amp;B
-                        flannel hashtag irony Wes Anderson. Lumbersexual Williamsburg Helvetica next level. Cold-pressed
-                        slow-carb pop-up normcore Thundercats Portland, cardigan literally meditation lumbersexual crucifix.
-                        Wayfarers raw denim paleo Bushwick, keytar Helvetica scenester keffiyeh 8-bit irony mumblecore
-                        whatever viral Truffaut.</p>
-
-                    <p>Post-ironic shabby chic VHS, Marfa keytar flannel lomo try-hard keffiyeh cray. Actually fap fanny
-                        pack yr artisan trust fund. High Life dreamcatcher church-key gentrify. Tumblr stumptown four dollar
-                        toast vinyl, cold-pressed try-hard blog authentic keffiyeh Helvetica lo-fi tilde Intelligentsia. Lomo
-                        locavore salvia bespoke, twee fixie paleo cliche brunch Schlitz blog McSweeney's messenger bag swag
-                        slow-carb. Odd Future photo booth pork belly, you probably haven't heard of them actually tofu ennui
-                        keffiyeh lo-fi Truffaut health goth. Narwhal sustainable retro disrupt.</p>
-
-                    <p>Skateboard artisan letterpress before they sold out High Life messenger bag. Bitters chambray
-                        leggings listicle, drinking vinegar chillwave synth. Fanny pack hoodie American Apparel twee. American
-                        Apparel PBR listicle, salvia aesthetic occupy sustainable Neutra kogi. Organic synth Tumblr viral
-                        plaid, shabby chic single-origin coffee Etsy 3 wolf moon slow-carb Schlitz roof party tousled squid
-                        vinyl. Readymade next level literally trust fund. Distillery master cleanse migas, Vice sriracha
-                        flannel chambray chia cronut.</p>
-
-                    <p>Thanks,<br>Jane</p>
+                                    <hr>
+                                    <p>Subido por: Abg. {{$documento[0]->abg_nombre}} {{$documento[0]->abg_apellidop}} {{$documento[0]->abg_apellidom}}</p>
+                                    <p>Para: {{$documento[0]->cl_razonsocial}}</p>
+                                    <hr>
+                                    <p>Fecha subida:  {{$documento[0]->doc_fechasubida}}</p>
+                                    <p>Hora subida: {{$documento[0]->doc_horasubida}}</p>
+                                    <div class="mt-4">
+                                        <a href="{{route('documento.download', $documento[0]->doc_id)}}" class="btn btn-danger btn-lg btn-flat">
+                                            <i class="fas fa-download"></i>
+                                                Descargar
+                                        </a>
+                                        <div class="btn btn-primary btn-lg btn-flat">
+                                            <i class="fas fa-edit"></i>
+                                                Editar
+                                        </div>
+                                        <form method="post" action="{{route('documento.destroy',  $documento[0]->doc_id)}}" style="display: inline">
+                                            {{csrf_field()}}
+                                            {{method_field('DELETE')}}
+                                            <button  class="btn btn-warning btn-lg btn-flat" type="submit"> <i class="fas fa-trash-alt"></i> Eliminar </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </section>
                 </div>
-            <!-- /.mailbox-read-message -->
-                </div>
+            </div>
         </div>
     </div>
 
@@ -101,7 +116,7 @@
                     {{ csrf_field() }}
                     <div class="input-group">
                         <input type="text" name="com_contenido" id="com_contenido" placeholder="Escribe tu comentario..." class="form-control">
-                        <input type="hidden" name="com_doc" id="com_doc" class="form-control" value="{{$documento->doc_id}}">
+                        <input type="hidden" name="com_doc" id="com_doc" class="form-control" value="{{$documento[0]->doc_id}}">
                         <span class="input-group-append">
                             <button type="submit" class="btn btn-warning">Enviar</button>
                         </span>

@@ -39,4 +39,11 @@ Route::prefix('Cliente')->group( function (){
 
 Route::resource('categoriadocumento', 'CategoriaDocumentoController');
 Route::resource('comentario', 'ComentarioController');
-Route::get('documento/{id}', 'DocumentoController@show')->name('documento.show');
+
+
+Route::get('documento/show/{id}', 'DocumentoController@show')->name('documento.show');
+Route::get('documentosPorCategoria/{id}', 'DocumentoController@indexPorCategoria')->name('documento.documentosPorCategoria');
+Route::get('documento/create', 'DocumentoController@create')->name('documento.create');
+Route::post('documento/store', 'DocumentoController@store')->name('documento.store');
+Route::get('/documento/download/{id}', 'DocumentoController@download')->name('documento.download');
+Route::delete('/documento/destroy/{id}', 'DocumentoController@destroy')->name('documento.destroy');
