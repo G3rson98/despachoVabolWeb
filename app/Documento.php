@@ -10,6 +10,9 @@ class Documento extends Model
     public $timestamps = false;
     protected $primaryKey = 'doc_id';
 
+    
+    protected $fillable = ['doc_id', 'doc_descripcion', 'doc_fechasubida', 'doc_horasubida', 'doc_titulo', 'doc_url', 'doc_cliente', 'doc_abogado', 'doc_categoriadoc', 'doc_idmail'];
+
     public function cliente()
     {
         return $this->belongsTo('App\Cliente');

@@ -172,15 +172,15 @@
         </button>
       </div>
       <div class="modal-body">
-      <form method="POST" action="{{ route('comentario.update', 'test') }}" role="form">
-            {{method_field('patch')}}
+      <form method="POST" action="{{ route('documento.update', 'test') }}" role="form">
+            {{method_field('PUT')}}
             {{ csrf_field() }}
             <div class="card-body">
                 <div class="form-group">
                     <label for="catdoc_nombre">Descripción: </label>
                     <textarea  class="form-control" name="doc_descripcion" id="doc_descripcion"></textarea>
                 </div>
-                    <input type="hidden" class="form-control" name="doc_id" id="doc_id">
+                    <input type="text" class="form-control" name="doc_id" id="doc_id">
                     <button type="submit" class="btn btn-primary btn-bottom-right">Editar</button>
             </div>
                 
