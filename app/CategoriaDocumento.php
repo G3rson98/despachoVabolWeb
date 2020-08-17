@@ -14,7 +14,7 @@ class CategoriaDocumento extends Model
 
     public function documento()
     {
-        return $this->hasMany('App\Documento');
+        return $this->hasMany('App\Documento', 'doc_categoriadoc');
     }
     
 

@@ -19,6 +19,19 @@ class CategoriaAnuncioController extends Controller
 
     public function store(Request $request)
     {
+        //Validation
+        $campos=[
+            'cat_nombre' => 'required|string|max:125',
+            'cat_descripcion' => 'required|string|max:300',
+        ];
+        $Mensaje = [
+            "required" => 'El/La :attribute es requerido/a.',
+            "max" => 'El/La :attribute debe ser menor a :max caracteres.',
+            "string" => 'El/La :attribute debe ser una cadena.'
+        ];
+        $this->validate($request,$campos,$Mensaje);
+        //--Validation
+
         $datosCategoria=request()->except('_token');
 
         CategoriaAnuncio::insert($datosCategoria);
@@ -38,6 +51,20 @@ class CategoriaAnuncioController extends Controller
     }
 
     public function update(Request $request, $id){
+
+        //Validation
+        $campos=[
+            'cat_nombre' => 'required|string|max:125',
+            'cat_descripcion' => 'required|string|max:300',
+        ];
+        $Mensaje = [
+            "required" => 'El/La :attribute es requerido/a.',
+            "max" => 'El/La :attribute debe ser menor a :max caracteres.',
+            "string" => 'El/La :attribute debe ser una cadena.'
+        ];
+        $this->validate($request,$campos,$Mensaje);
+        //--Validation
+        
         $datosCategoria=request()->except(['_token','_method']);
         CategoriaAnuncio::where('cat_id','=',$id)->update($datosCategoria);
 

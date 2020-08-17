@@ -10,7 +10,11 @@ Route::get('/','Auth\LoginController@showLoginForm');
 /* RUTAS CAMILA STEFANIE YACOB*/
 Route::resource('categoriaanuncio', 'CategoriaAnuncioController');
 Route::resource('anuncio', 'AnuncioController');
+Route::get('/anuncio/{id}/estado', 'AnuncioController@editEstado');
 Route::resource('solicitudcontacto', 'SolicitudContactoController');
+Route::get('/solicitudcontacto/{id}/estado', 'SolicitudContactoController@editEstado');
+
+Route::get('/home', 'LandingController@getView');
 
 /* RUTAS GERSON OLIVA*/
 Route::prefix('Abogado')->group( function (){
@@ -38,9 +42,11 @@ Route::prefix('Cliente')->group( function (){
 
 Route::resource('categoriadocumento', 'CategoriaDocumentoController');
 Route::resource('comentario', 'ComentarioController');
-Route::get('documento/{id}', 'DocumentoController@show')->name('documento.show');
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('login','Auth\LoginController@login')->name('login');
+Route::get('documento/show/{id}', 'DocumentoController@show')->name('documento.show');
+Route::get('documentosPorCategoria/{id}', 'DocumentoController@indexPorCategoria')->name('documento.documentosPorCategoria');
+Route::get('documento/create', 'DocumentoController@create')->name('documento.create');
+Route::post('documento/store', 'DocumentoController@store')->name('documento.store');
+Route::get('/documento/download/{id}', 'DocumentoController@download')->name('documento.download');
+Route::delete('/documento/destroy/{id}', 'DocumentoController@destroy')->name('documento.destroy');

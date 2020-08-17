@@ -33,7 +33,7 @@
                                 <td>{{$catdoc->catdoc_nombre}}</td>
                                 <td>{{$catdoc->catdoc_descripcion}}</td>
                                 <td>
-                                    <a href="#" class="btn btn-info">Ver</a>
+                                    <a href="{{ route('documento.documentosPorCategoria', $catdoc->catdoc_id) }}" class="btn btn-info">Ver Documentos</a>
                                     <a href="{{ route('categoriadocumento.edit', $catdoc->catdoc_id) }}" class="btn btn-primary">Editar</a>
                                     <form method="post" action="{{route('categoriadocumento.destroy', $catdoc->catdoc_id)}}" style="display: inline">
                                         {{csrf_field()}}
