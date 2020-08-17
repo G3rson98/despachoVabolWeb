@@ -37,6 +37,9 @@ Route::prefix('Cliente')->group( function (){
     Route::get('delete/{id}','ClienteController@delete')->name('cliente.delete');
     Route::get('destroy/{id}','ClienteController@destroy')->name('cliente.destroy');
 });
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('login','Auth\LoginController@login')->name('login');
 
 /* RUTAS DANIEL ROBLES*/
 
