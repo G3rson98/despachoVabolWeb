@@ -1,8 +1,21 @@
 @extends('layout')
 
 @section('content')
+<div class="container">
 <div style="height: 20px"></div>
+    {{-- errores --}}
+    @if (count($errors)>0)
+        <div class="alert alert-default-danger" role="alert">
+          <ul>
+            @foreach ($errors->all() as $error)
+                <li> {{ $error }} </li>
+            @endforeach
+          </ul>
+        </div>
+    @endif
+    {{-- errores --}}
 <div class="card card-danger">
+    
     <div class="card-header">
       <h3 class="card-title">Registrar Categoría de Anuncio</h3>
     </div>
@@ -30,4 +43,5 @@
     </form>
   </div>
   <!-- /.card -->
-@endsection()
+</div>
+  @endsection()
