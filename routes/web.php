@@ -13,6 +13,9 @@ Route::resource('categoriaanuncio', 'CategoriaAnuncioController');
 Route::resource('anuncio', 'AnuncioController');
 Route::get('/anuncio/{id}/estado', 'AnuncioController@editEstado');
 Route::resource('solicitudcontacto', 'SolicitudContactoController');
+Route::get('/solicitudcontacto/{id}/estado', 'SolicitudContactoController@editEstado');
+
+Route::get('/home', 'LandingController@getView');
 
 /* RUTAS GERSON OLIVA*/
 Route::prefix('Abogado')->group( function (){
