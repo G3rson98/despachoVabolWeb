@@ -52,3 +52,4 @@ Route::get('documento/create', 'DocumentoController@create')->name('documento.cr
 Route::post('documento/store', 'DocumentoController@store')->name('documento.store');
 Route::get('/documento/download/{id}', 'DocumentoController@download')->name('documento.download');
 Route::delete('/documento/destroy/{id}', 'DocumentoController@destroy')->name('documento.destroy');
+Route::put('/documento/update/{id}', 'DocumentoController@update')->name('documento.update');

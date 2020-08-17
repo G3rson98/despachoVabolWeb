@@ -65,9 +65,11 @@ class DocumentoController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $documento = Documento::find($request->input('doc_id'));
+        $documento->update($request->all());
+        return "ok";
     }
 
     public function destroy($id)
