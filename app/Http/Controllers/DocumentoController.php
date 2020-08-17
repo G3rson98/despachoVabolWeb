@@ -54,7 +54,7 @@ class DocumentoController extends Controller
     public function show($id)
     {
         $documento = DB::select('select * from documento, cliente, abogado  where doc_cliente = cl_nit and abg_ci = doc_abogado and doc_id = ?', [$id]);
-        $comentariosDoc = DB::select('select * from comentario, usuario where com_usuario = usu_id and com_doc = ?', [$id]);
+        $comentariosDoc = DB::select('select * from comentario, usuario where com_usuario = id and com_doc = ?', [$id]);
         $imagenDocumento = $documento[0]->doc_titulo;
         $extensionArchivo = pathinfo($imagenDocumento, PATHINFO_EXTENSION);
         return view('Documento.show',compact('documento','comentariosDoc', 'extensionArchivo'));

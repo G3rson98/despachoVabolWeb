@@ -93,7 +93,7 @@
                 @foreach($comentariosDoc as $comdoc)
                     <div class="direct-chat-msg">
                         <div class="direct-chat-infos clearfix">
-                            <span class="direct-chat-name float-left">{{$comdoc->usu_email}}</span>
+                            <span class="direct-chat-name float-left">{{$comdoc->email}}</span>
                             <span class="direct-chat-timestamp float-right">{{$comdoc->com_fecha}} || {{$comdoc->com_hora}}</span>
                         </div>
                         <img class="direct-chat-img" src="/dist/img/user1-128x128.jpg" alt="message user image">
