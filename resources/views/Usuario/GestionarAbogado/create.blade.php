@@ -93,6 +93,22 @@
                                 <input type="text" class="form-control"  name="abg_numregcorte" id="exampleInputPassword1" placeholder="Ej.7234">
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label for="exampleInputPassword1">Email</label>
+                                <input type="text" class="form-control" name="usu_email" id="exampleInputPassword1" placeholder="Ejemplo@tecnoweb.com">
+                            </div>                            
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="exampleInputPassword1">Contraseña</label>
+                                <input type="text" class="form-control" name="usu_contrasena" id="exampleInputPassword1" >
+                            </div>
+                            <div class="col-md-6">
+                                <label for="exampleInputPassword1">Confirmar contraseña</label>
+                                <input type="text" class="form-control"  name="usu_confirmar" id="exampleInputPassword1" >
+                            </div>
+                        </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
