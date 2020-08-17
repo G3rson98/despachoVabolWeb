@@ -200,7 +200,7 @@
             </ul>
           </li>
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+            <a href="{{ route('documento.create') }}" class="nav-link active">
               <i class="nav-icon fas fa-file-alt"></i>
               <p>
                 Documento

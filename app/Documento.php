@@ -22,7 +22,7 @@ class Documento extends Model
 
     public function categoriadoc()
     {
-        return $this->belongsTo('App\CategoriaDocumento');
+        return $this->belongsTo('App\CategoriaDocumento', 'doc_categoriadoc');
     }
 
     public function comentario()
