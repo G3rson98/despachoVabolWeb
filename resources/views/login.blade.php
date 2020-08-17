@@ -20,10 +20,7 @@
 </head>
 
 <body>
-
-
     <div class="row  justify-content-center">
-
         <div class="col-md-4 p-5">
             <div class="card card-primary">
                 <div class="card-header">
@@ -32,19 +29,21 @@
                     </h1>
                 </div>
                 <div class="card-body">
-                    <form action="">
-                        <div class="form-group">
+                    <form role="form" method="POST" action="{{route('login')}}">
+                        {{csrf_field() }}
+                        <div class="form-group {{ $errors->has('email')? 'has-error': ''}}">
                             <label for="email">Email</label>
-                            <input class="form-control" type="email" name="email" placeholder="Ingresa tu email">
+                            <input class="form-control" type="email" name="email" placeholder="Ingresa tu email" value="{{old('email')}}">
+                            {!! $errors->first('email','<span class="help-block">:message</span>') !!}
                         </div>
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('password') ? 'has-error': ''}}">
                             <label for="password">Contraseña</label>
-                            <input class="form-control" type="password" name="password" placeholder="Ingresa tu email">
+                            <input class="form-control" type="password" name="password" >
+                            {!! $errors->first('password','<span class="help-block">:message</span>') !!}
                         </div>
+                        <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
                     </form>
                 </div>
-
-                <div class="btn btn-primary btn-block">Ingresar</div>
             </div>
         </div>
     </div>

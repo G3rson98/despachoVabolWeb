@@ -1,11 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('login');
-});
+Route::get('/','Auth\LoginController@showLoginForm');
 
 
 /* RUTAS CAMILA STEFANIE YACOB*/
@@ -40,3 +39,8 @@ Route::prefix('Cliente')->group( function (){
 Route::resource('categoriadocumento', 'CategoriaDocumentoController');
 Route::resource('comentario', 'ComentarioController');
 Route::get('documento/{id}', 'DocumentoController@show')->name('documento.show');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('login','Auth\LoginController@login')->name('login');

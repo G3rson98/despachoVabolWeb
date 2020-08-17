@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Abogado;
+use App\Usuario;
+use Illuminate\Support\Facades\Hash;
 
 class AbogadoController extends Controller
 {
@@ -35,11 +37,22 @@ class AbogadoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
+    {   $usuario= new Usuario();
+        $usuario->usu_email=$request['usu_email'];
+        $usuario->usu_contraseña = Hash::make($request['usu_contrasena']);
+        $usuario->save();
+        //echo ($usuario);
+        /*
+        $id_usuario =new Usuario();
+        $id_usuario = Usuario::where('usu_email',$request['usu_email'])->get();
+        //print ($id_usuario);
         $abogado= new Abogado($request->all());             
         $fecha="".$request['abg_ano']."-".$request['abg_mes']."-".$request['abg_dia'];
         $abogado->abg_fnacimiento=$fecha;
+        $abogado->abg_usuario = $id_usuario;
         $abogado->save();
+        //echo ($abogado);
+        */
         return redirect()->route('abogado.index');
     }
 
