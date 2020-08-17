@@ -60,10 +60,7 @@
                                             <i class="fas fa-download"></i>
                                                 Descargar
                                         </a>
-                                        <div class="btn btn-primary btn-lg btn-flat">
-                                            <i class="fas fa-edit"></i>
-                                                Editar
-                                        </div>
+                                        <button href="#" id="edit_documento" class="btn btn-primary btn-lg btn-flat" data-myid="{{$documento[0]->doc_id}}" data-mydescripcion="{{$documento[0]->doc_descripcion}}" data-toggle="modal" data-target="#editdocumento"> <i class="fas fa-edit"></i>Editar</button>
                                         <form method="post" action="{{route('documento.destroy',  $documento[0]->doc_id)}}" style="display: inline">
                                             {{csrf_field()}}
                                             {{method_field('DELETE')}}
@@ -128,7 +125,7 @@
 </div>
 
 
-<!-- Modal -->
+<!-- Modal Comentario-->
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -157,6 +154,40 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Documento -->
+<div class="modal fade" id="editdocumento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar documento: </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form method="POST" action="{{ route('comentario.update', 'test') }}" role="form">
+            {{method_field('patch')}}
+            {{ csrf_field() }}
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="catdoc_nombre">Descripción: </label>
+                    <textarea  class="form-control" name="doc_descripcion" id="doc_descripcion"></textarea>
+                </div>
+                    <input type="hidden" class="form-control" name="doc_id" id="doc_id">
+                    <button type="submit" class="btn btn-primary btn-bottom-right">Editar</button>
+            </div>
+                
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
       </div>
     </div>
   </div>
