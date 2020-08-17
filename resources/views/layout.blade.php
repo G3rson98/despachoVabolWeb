@@ -232,19 +232,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('categoriaanuncio.index') }}" class="nav-link">
                   <i class="far fa-folder nav-icon"></i>
-                  <p>Categoría Anuncios</p>
+                  <p>Categorías Anuncios</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('anuncio.index') }}" class="nav-link">
                   <i class="far fa-edit nav-icon"></i>
                   <p>Anuncios</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('solicitudcontacto.index') }}" class="nav-link">
                   <i class="far fa-address-card nav-icon"></i>
                   <p>Solicitudes de contacto</p>
                 </a>
