@@ -78,6 +78,17 @@
     </div>
 
     <div class="card direct-chat direct-chat-warning card-warning">
+        {{-- errores --}}
+        @if (count($errors)>0)
+            <div class="alert alert-default-danger" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li> {{ $error }} </li>
+                @endforeach
+            </ul>
+            </div>
+        @endif
+        {{-- errores --}}
         <div class="card-header ">
             <h3 class="card-title">Comentarios</h3>
                 <div class="card-tools">
@@ -100,7 +111,7 @@
                             <form method="post" action="{{route('comentario.destroy', $comdoc->com_id)}}" style="display: inline">
                                     {{csrf_field()}}
                                     {{method_field('DELETE')}}
-                                    <button  class="btn" type="submit"><i class="fas fa-trash-alt"></i></i></button>
+                                    <button  class="btn" type="submit" onclick="return confirm('¿Seguro que desea eliminar el comentario?');"><i class="fas fa-trash-alt"></i></i></button>
                             </form>
                             
                         </div>
