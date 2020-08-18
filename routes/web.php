@@ -39,6 +39,8 @@ Route::prefix('Cliente')->group( function (){
 });
 
 Route::post('login','Auth\LoginController@login')->name('login');
+Route::post('logout','Auth\LoginController@logout')->name('logout');
+Route::get('dashboard','DashboardController@index')->name('dashboard');
 
 /* RUTAS DANIEL ROBLES*/
 

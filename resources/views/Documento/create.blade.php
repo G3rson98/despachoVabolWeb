@@ -7,6 +7,17 @@
     <br>
 
     <div class="card card-primary">
+        {{-- errores --}}
+        @if (count($errors)>0)
+            <div class="alert alert-default-danger" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li> {{ $error }} </li>
+                @endforeach
+            </ul>
+            </div>
+        @endif
+        {{-- errores --}}
         <div class="card-header">
             <h3 class="card-title">Registrar documento</h3>
         </div>
