@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Usuario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('guest',['only' => 'showLoginForm']);
+    }
     public function showLoginForm(){
         return view('login');
     }
@@ -25,13 +31,30 @@ class LoginController extends Controller
             'password' => $usu_contrasena,
             'email' => $usu_email
         ))){            
-            return redirect()->route('abogado.index');
-            //return auth()->user()->email;
+            return redirect()->route('dashboard');
+            //session()->put('nombre','Gerson');
+            //return session()->all();
+            //return Auth()->user()->rol;
         }
             return back()
             ->withErrors(['email' => 'Estas credenciales no concuerdan con nuestros registros'])
             ->withInput(request(['email']));
     }   
 
+    public function logout()
+    {
+        Auth::logout();
+        session()->forget('nombre');
+        return redirect('/');
+    }
+    public function getDatos($email)
+    {
+        $Usuario= Usuario::where('email',$email)->get();
+        if ($Usuario['rol'] == 'Abogado') {
 
+            
+        }else if($Usuario['rol'] == 'Cliente'){
+            
+        }
+    }
 }
