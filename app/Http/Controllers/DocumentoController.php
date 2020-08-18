@@ -87,9 +87,20 @@ class DocumentoController extends Controller
 
     public function update(Request $request)
     {
+        //Validation
+        $campos=[
+            'doc_descripcion' => 'required|string|max:125',
+        ];
+        $Mensaje = [
+            "doc_descripcion.required" => 'El campo descripción es requerido.',
+            "doc_descripcion.max" => 'El campo descripción debe ser menor a :max caracteres.',
+            "doc_descripcion.string" => 'El campo descripción debe ser una cadena.', 
+        ];
+        $this->validate($request,$campos,$Mensaje);
+        //--Validation
         $documento = Documento::find($request->input('doc_id'));
         $documento->update($request->all());
-        return "ok";
+        return $this->show($documento->doc_id);
     }
 
     public function destroy($id)

@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <label>Selecciona el cliente: </label>
                     <select class="form-control" name="doc_cliente" id="doc_cliente">
-                        <option value="0">Seleccione un cliente...</option>
+                        <option>Seleccione un cliente...</option>
                         @foreach($clientes as $cliente)
                             <option value="{{$cliente->cl_nit}}"> {{$cliente->cl_razonsocial}} - Nit: {{$cliente->cl_nit}}</option>
                         @endforeach
@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label>Selecciona la categoría del documento: </label>
                     <select class="form-control" name="doc_categoriadoc" id="doc_categoriadoc">
-                        <option value="0">Seleccione una categoría...</option>
+                        <option>Seleccione una categoría...</option>
                         @foreach($categorias as $cat)
                             <option value="{{$cat->catdoc_id}}"> {{$cat->catdoc_nombre}}</option>
                         @endforeach

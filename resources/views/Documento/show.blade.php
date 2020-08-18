@@ -3,7 +3,17 @@
 @section('content')
 <br>
 <div class="container">
-    
+    {{-- errores --}}
+    @if (count($errors)>0)
+        <div class="alert alert-default-danger" role="alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li> {{ $error }} </li>
+            @endforeach
+        </ul>
+        </div>
+    @endif
+    {{-- errores --}}
     <div class="card card-primary card-outline">
         <div class="card-header">
             <h3 class="card-title">Documento</h3>
@@ -64,7 +74,7 @@
                                         <form method="post" action="{{route('documento.destroy',  $documento[0]->doc_id)}}" style="display: inline">
                                             {{csrf_field()}}
                                             {{method_field('DELETE')}}
-                                            <button  class="btn btn-warning btn-lg btn-flat" type="submit"> <i class="fas fa-trash-alt"></i> Eliminar </button>
+                                            <button  class="btn btn-warning btn-lg btn-flat" type="submit" onclick="return confirm('¿Seguro que desea eliminar el documento?');"> <i class="fas fa-trash-alt"></i> Eliminar </button>
                                         </form>
                                     </div>
                                 </div>
@@ -78,17 +88,6 @@
     </div>
 
     <div class="card direct-chat direct-chat-warning card-warning">
-        {{-- errores --}}
-        @if (count($errors)>0)
-            <div class="alert alert-default-danger" role="alert">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li> {{ $error }} </li>
-                @endforeach
-            </ul>
-            </div>
-        @endif
-        {{-- errores --}}
         <div class="card-header ">
             <h3 class="card-title">Comentarios</h3>
                 <div class="card-tools">
@@ -191,7 +190,7 @@
                     <label for="catdoc_nombre">Descripción: </label>
                     <textarea  class="form-control" name="doc_descripcion" id="doc_descripcion"></textarea>
                 </div>
-                    <input type="text" class="form-control" name="doc_id" id="doc_id">
+                    <input type="hidden" class="form-control" name="doc_id" id="doc_id">
                     <button type="submit" class="btn btn-primary btn-bottom-right">Editar</button>
             </div>
                 
