@@ -50,7 +50,7 @@ class SolicitudContactoController extends Controller
         $solicitud->sol_fecha = date('Y-m-d');
         $solicitud->save();
 
-        return redirect('/home');
+        return redirect('/');
         // $datosAnuncio = request()->except(['_token']);
         // return response()->json($datosAnuncio);
     }
