@@ -38,7 +38,7 @@
                                     <form method="post" action="{{route('categoriadocumento.destroy', $catdoc->catdoc_id)}}" style="display: inline">
                                         {{csrf_field()}}
                                         {{method_field('DELETE')}}
-                                        <button  class="btn btn-danger" type="submit">Eliminar</button>
+                                        <button  class="btn btn-danger" type="submit" onclick="return confirm('¿Seguro que desea eliminar la categoría documento?');">Eliminar</button>
                                     </form>
                                 </td>
                             </tr>
