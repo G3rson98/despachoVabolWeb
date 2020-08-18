@@ -347,8 +347,19 @@
       modal.find('.modal-body #com_id').val(com_id);
       modal.find('.modal-body #com_doc').val(com_doc);
       modal.find('.modal-body #com_usuario').val(com_usuario);
-    })
-  </script>
+  })
+
+  $('#editdocumento').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) 
+      var doc_id = button.data('myid') 
+      var doc_descripcion = button.data('mydescripcion') 
+      console.log(doc_id, doc_descripcion);
+
+      var modal = $(this)
+      modal.find('.modal-body #doc_descripcion').val(doc_descripcion);
+      modal.find('.modal-body #doc_id').val(doc_id);
+  })
+</script>
 </body>
 
 </html>

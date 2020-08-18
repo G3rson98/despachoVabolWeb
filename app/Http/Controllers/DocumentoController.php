@@ -30,6 +30,27 @@ class DocumentoController extends Controller
 
     public function store(Request $request)
     {
+         //Validation
+         $campos=[
+            'doc_descripcion' => 'required|string|max:125',
+            'doc_cliente' => 'required|integer',
+            'doc_categoriadoc' => 'required|integer',
+            'doc_url' => 'required',
+            
+        ];
+        $Mensaje = [
+            "doc_descripcion.required" => 'El campo descripción es requerido.',
+            "doc_cliente.required" => 'Debe escoger a un cliente.',
+            "doc_categoriadoc.required" => 'Debe escoger una categoría documento',
+            "doc_url.required" => 'Debe escoger un archivo para subir.',
+            "doc_descripcion.max" => 'El campo descripción debe ser menor a :max caracteres.',
+            "doc_descripcion.string" => 'El campo descripción debe ser una cadena.', 
+            "doc_cliente.integer" => 'El campo cliente debe ser un entero.', 
+            "doc_categoriadoc.integer" => 'El campo categoría documento debe ser un entero.'
+        ];
+        $this->validate($request,$campos,$Mensaje);
+        //--Validation
+        
         if($request->hasFile('doc_url')){
            date_default_timezone_set("America/La_Paz");
            $originalName = $request->doc_url->getClientOriginalName();
@@ -46,9 +67,8 @@ class DocumentoController extends Controller
            $documento->doc_categoriadoc = $request->input('doc_categoriadoc');
            $documento->doc_idmail = 1; 
            $documento->save();
-           return 'yes';
         }
-        return 'no';
+        return redirect()->route('documento.create');
     }
 
     public function show($id)
@@ -65,9 +85,11 @@ class DocumentoController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $documento = Documento::find($request->input('doc_id'));
+        $documento->update($request->all());
+        return "ok";
     }
 
     public function destroy($id)
