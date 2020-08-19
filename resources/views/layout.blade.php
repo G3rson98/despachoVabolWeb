@@ -167,7 +167,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('solicitudcontacto.index') }}" class="nav-link">
+                  <a href="{{ route('solicitudcontacto.index') }}" class="nav-link" style="color: cadetblue">
                     <i class="far fa-address-card nav-icon"></i>
                     <p>Solicitudes de contacto</p>
                   </a>
@@ -220,22 +220,6 @@
           <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-          <!-- Control sidebar content goes here -->
-          <div class="p-3">
-            <h5>Despacho VABOL</h5>
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Configuración</p>
-            </a>
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Salir</p>
-            </a>
-          </div>
-        </aside>
       </div>
       <!-- /.control-sidebar -->
       </div>
