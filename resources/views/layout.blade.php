@@ -51,14 +51,14 @@
         </div>
       </form>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i class="fas fa-cog"></i></a>
-      </li>
-    </ul>
-  </nav>
-  <!-- /.navbar -->
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i class="fas fa-cog"></i></a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -91,7 +91,7 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <!--@if(auth()->user()->rol === '')-->
+            
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-user-alt"></i>
@@ -121,7 +121,7 @@
                 </li>
               </ul>
             </li>
-            <!--@endif-->
+            
             <li class="nav-item has-treeview menu-open">
               <a href="{{ route('documento.create') }}" class="nav-link active">
                 <i class="nav-icon fas fa-file-alt"></i>
@@ -195,97 +195,100 @@
       <div class="content-header">
         <div class="container-fluid">
 
-  <!-- Control Sidebar -->
-  {{-- AQUUIIIIIII --}}
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>¿Qué tema quieres?</h5>
-      <div class="d-flex flex-wrap mb-3">
-        <div class="bg-gray elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-        <div class="bg-light elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-        <div class="bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-      </div>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
+          <!-- Control Sidebar -->
+          {{-- AQUUIIIIIII --}}
+          <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+            <div class="p-3">
+              <h5>¿Qué tema quieres?</h5>
+              <div class="d-flex flex-wrap mb-3">
+                <div class="bg-gray elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
+                <div class="bg-light elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
+                <div class="bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
+              </div>
+            </div>
+          </aside>
+          <!-- /.control-sidebar -->
 
-      <!-- Main content -->
-      <div class="content">
-        <div class="container-fluid">
-          @yield('content')
-          <!-- /.row -->
-        </div><!-- /.container-fluid -->
-      </div>
-      <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
+          <!-- Main content -->
+          <div class="content">
+            <div class="container-fluid">
+              @yield('content')
+              <!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-      <div class="p-3">
-        <h5>Despacho VABOL</h5>
-        <a href="#" class="nav-link">
-          <i class="far fa-circle nav-icon"></i>
-          <p>Configuración</p>
-        </a>
-        <a href="#" class="nav-link">
-          <i class="far fa-circle nav-icon"></i>
-          <p>Salir</p>
-        </a>
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+          <!-- Control sidebar content goes here -->
+          <div class="p-3">
+            <h5>Despacho VABOL</h5>
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Configuración</p>
+            </a>
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Salir</p>
+            </a>
+          </div>
+        </aside>
       </div>
-    </aside>
-    <!-- /.control-sidebar -->
+      <!-- /.control-sidebar -->
+      </div>
+      <!-- Main Footer -->
+      <footer class="main-footer">
+        <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+          Despacho de abogados
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2020 <a href="#">VABOL L.T.D.A.</a>.</strong> Derechos reservados.
+      </footer>
+    
+    <!-- ./wrapper -->
 
-    <!-- Main Footer -->
-    <footer class="main-footer">
-      <!-- To the right -->
-      <div class="float-right d-none d-sm-inline">
-        Despacho de abogados
-      </div>
-      <!-- Default to the left -->
-      <strong>Copyright &copy; 2020 <a href="#">VABOL L.T.D.A.</a>.</strong> Derechos reservados.
-    </footer>
+    <!-- REQUIRED SCRIPTS -->
+
+    <!-- jQuery -->
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/dist/js/adminlte.min.js"></script>
+
+    <script>
+      $('#edit').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
+        var com_id = button.data('myid')
+        var com_contenido = button.data('mycontent')
+        var com_doc = button.data('mydoc')
+        var com_usuario = button.data('myuser')
+        console.log(com_contenido);
+
+        var modal = $(this)
+        modal.find('.modal-body #com_contenido').val(com_contenido);
+        modal.find('.modal-body #com_id').val(com_id);
+        modal.find('.modal-body #com_doc').val(com_doc);
+        modal.find('.modal-body #com_usuario').val(com_usuario);
+      })
+
+      $('#editdocumento').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
+        var doc_id = button.data('myid')
+        var doc_descripcion = button.data('mydescripcion')
+        console.log(doc_id, doc_descripcion);
+
+        var modal = $(this)
+        modal.find('.modal-body #doc_descripcion').val(doc_descripcion);
+        modal.find('.modal-body #doc_id').val(doc_id);
+      })
+    </script>
   </div>
-  <!-- ./wrapper -->
-
-  <!-- REQUIRED SCRIPTS -->
-
-  <!-- jQuery -->
-  <script src="/plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
-  <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="/dist/js/adminlte.min.js"></script>
-
-  <script>
-    $('#edit').on('show.bs.modal', function(event) {
-      var button = $(event.relatedTarget)
-      var com_id = button.data('myid')
-      var com_contenido = button.data('mycontent')
-      var com_doc = button.data('mydoc')
-      var com_usuario = button.data('myuser')
-      console.log(com_contenido);
-
-      var modal = $(this)
-      modal.find('.modal-body #com_contenido').val(com_contenido);
-      modal.find('.modal-body #com_id').val(com_id);
-      modal.find('.modal-body #com_doc').val(com_doc);
-      modal.find('.modal-body #com_usuario').val(com_usuario);
-  })
-
-  $('#editdocumento').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) 
-      var doc_id = button.data('myid') 
-      var doc_descripcion = button.data('mydescripcion') 
-      console.log(doc_id, doc_descripcion);
-
-      var modal = $(this)
-      modal.find('.modal-body #doc_descripcion').val(doc_descripcion);
-      modal.find('.modal-body #doc_id').val(doc_id);
-  })
-</script>
+  </div>
 </body>
 
 </html>
