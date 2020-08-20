@@ -40,7 +40,7 @@ class ComentarioController extends Controller
         $comentario = new Comentario();
         $comentario->com_contenido = $request->input('com_contenido');
         $comentario->com_doc = $request->input('com_doc');
-        $comentario->com_usuario = 1;
+        $comentario->com_usuario = auth()->user()->id;
         $comentario->com_fecha = date('Y-m-d');
         date_default_timezone_set("America/La_Paz");
         $comentario->com_hora = date("G:i:s");

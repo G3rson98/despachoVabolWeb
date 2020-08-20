@@ -19,9 +19,25 @@ class DocumentoController extends Controller
     
     public function indexPorCategoria($id)
     {
-        $documentosPorCategoria = CategoriaDocumento::find($id)->documento;
+        $idUsuario = auth()->user()->id ;
+        $rol = auth()->user()->rol;
+
+        if ($rol == "Cliente") {
+            $respCliente = DB::select('select cl_nit from cliente where cl_usuario = ?', [$idUsuario]);
+            $idCliente = $respCliente[0]->cl_nit;
+            $documentosPorCategoria = DB::select('select * from documento where doc_categoriadoc = ? and doc_cliente = ?', [$id, $idCliente]);
+            
+        }else{
+            $resAbog = DB::select('select abg_ci from abogado where abg_usuario = ?', [$idUsuario]);
+            $idAbogado = $resAbog[0]->abg_ci;
+            $documentosPorCategoria = DB::select('select * from documento where doc_categoriadoc = ? and doc_abogado = ?', [$id, $idAbogado]);
+        }
+
         $categoria = CategoriaDocumento::find($id);
         return view('Documento.indexPorDocumento',compact('documentosPorCategoria', 'categoria'));
+        // $documentosPorCategoria = CategoriaDocumento::find($id)->documento;
+        // $categoria = CategoriaDocumento::find($id);
+        // return view('Documento.indexPorDocumento',compact('documentosPorCategoria', 'categoria'));
     }
 
 
@@ -54,6 +70,10 @@ class DocumentoController extends Controller
         ];
         $this->validate($request,$campos,$Mensaje);
         //--Validation
+
+        $idUsuario = auth()->user()->id ;
+        $resAbog = DB::select('select abg_ci from abogado where abg_usuario = ?', [$idUsuario]);
+        $idAbogado = $resAbog[0]->abg_ci;
         
         if($request->hasFile('doc_url')){
            date_default_timezone_set("America/La_Paz");
@@ -67,7 +87,7 @@ class DocumentoController extends Controller
            $documento->doc_horasubida  = date("G:i:s");
            $documento->doc_url = 'upload/'.$filename;
            $documento->doc_cliente = $request->input('doc_cliente');
-           $documento->doc_abogado = 30; 
+           $documento->doc_abogado = $idAbogado; 
            $documento->doc_categoriadoc = $request->input('doc_categoriadoc');
            $documento->doc_idmail = 1; 
            $documento->save();

@@ -69,12 +69,14 @@
                                             <i class="fas fa-download"></i>
                                                 Descargar
                                         </a>
+                                        @if(auth()->user()->rol == 'Administrador' || auth()->user()->rol == 'Abogado')
                                         <button href="#" id="edit_documento" class="btn btn-primary btn-lg btn-flat" data-myid="{{$documento[0]->doc_id}}" data-mydescripcion="{{$documento[0]->doc_descripcion}}" data-toggle="modal" data-target="#editdocumento"> <i class="fas fa-edit"></i>Editar</button>
                                         <form method="post" action="{{route('documento.destroy',  $documento[0]->doc_id)}}" style="display: inline">
                                             {{csrf_field()}}
                                             {{method_field('DELETE')}}
                                             <button  class="btn btn-warning btn-lg btn-flat" type="submit" onclick="return confirm('¿Seguro que desea eliminar el documento?');"> <i class="fas fa-trash-alt"></i> Eliminar </button>
                                         </form>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -105,12 +107,14 @@
                         <img class="direct-chat-img" src="/dist/img/user1-128x128.jpg" alt="message user image">
                         <div class="direct-chat-text">
                             {{$comdoc->com_contenido}}
-                            <button href="#" id="edit_item" class="btn" data-myid="{{$comdoc->com_id}}" data-mycontent="{{$comdoc->com_contenido}}" data-mydoc="{{$comdoc->com_doc}}" data-myuser="{{$comdoc->com_usuario}}" data-toggle="modal" data-target="#edit"><i class="fas fa-edit"></i></button>
-                            <form method="post" action="{{route('comentario.destroy', $comdoc->com_id)}}" style="display: inline">
-                                    {{csrf_field()}}
-                                    {{method_field('DELETE')}}
-                                    <button  class="btn" type="submit" onclick="return confirm('¿Seguro que desea eliminar el comentario?');"><i class="fas fa-trash-alt"></i></i></button>
-                            </form>
+                                @if(auth()->user()->id == $comdoc->com_usuario)
+                                    <button href="#" id="edit_item" class="btn" data-myid="{{$comdoc->com_id}}" data-mycontent="{{$comdoc->com_contenido}}" data-mydoc="{{$comdoc->com_doc}}" data-myuser="{{$comdoc->com_usuario}}" data-toggle="modal" data-target="#edit"><i class="fas fa-edit"></i></button>
+                                    <form method="post" action="{{route('comentario.destroy', $comdoc->com_id)}}" style="display: inline">
+                                            {{csrf_field()}}
+                                            {{method_field('DELETE')}}
+                                            <button  class="btn" type="submit" onclick="return confirm('¿Seguro que desea eliminar el comentario?');"><i class="fas fa-trash-alt"></i></i></button>
+                                    </form>
+                                @endif
                             
                         </div>
                     </div>
