@@ -6,6 +6,17 @@
     <div class="row align-items-center justify-content-center ">
         <div class="col-sm-8">
             <div class="card card-primary">
+                {{-- errores --}}
+                @if (count($errors)>0)
+                <div class="alert alert-default-danger" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li> {{ $error }} </li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                {{-- errores --}}
                 <div class="card-header">
                     <h3 class="card-title">Registrar Cliente</h3>
                 </div>
@@ -23,7 +34,6 @@
                                 <label for="exampleInputPassword1">Ciudad</label>
                                 <input type="text" class="form-control" name="cl_ciudad" id="exampleInputPassword1" placeholder="Ej.Santa cruz" required>
                             </div>
-
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -35,9 +45,7 @@
                                 <input type="text" class="form-control" name="cl_direccion" id="exampleInputPassword1" placeholder="Ej.Calle la alegria #50" required>
                             </div>
                         </div>
-
                         <div class="form-row">
-
                             <div class="form-group col-md-6">
                                 <label for="exampleInputPassword1">Nombre de representante</label>
                                 <input type="text" class="form-control" name="cl_nrepresentante" id="exampleInputPassword1" placeholder="Ej.Sebastian Frankfurt" required>
@@ -46,7 +54,6 @@
                                 <label for="exampleInputPassword1">Pagina Web</label>
                                 <input type="text" class="form-control" name="cl_paginaweb" id="exampleInputPassword1" placeholder="Ej.www.Santacruz.com" required>
                             </div>
-
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">
@@ -68,15 +75,33 @@
                                 <input type="text" class="form-control" name="cl_telefono" id="exampleInputPassword1" placeholder="Ej.723443">
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="exampleInputPassword1">Email</label>
+                                <input type="text" class="form-control" name="email" id="exampleInputPassword1" placeholder="Ejemplo@tecnoweb.com">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="exampleInputPassword1">Contraseña</label>
+                                <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="exampleInputPassword1">Confirmar contraseña</label>
+                                <input type="password" class="form-control" name="password_Confirm" id="exampleInputPassword1">
+                            </div>
+                        </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 
 
 @endsection

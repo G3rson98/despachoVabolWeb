@@ -24,7 +24,7 @@ Route::prefix('Abogado')->group( function (){
     Route::get('show/{id}','AbogadoController@show')->name('abogado.show');
     Route::post('store', 'AbogadoController@store')->name('abogado.store');
     Route::get('edit/{id}','AbogadoController@edit')->name('abogado.edit');
-    Route::put('update/{id}','AbogadoController@update')->name('abogado.update');
+    Route::post('update/{id}','AbogadoController@update')->name('abogado.update');
     Route::get('delete/{id}','AbogadoController@delete')->name('abogado.delete');
     Route::get('destroy/{id}','AbogadoController@destroy')->name('abogado.destroy');
 });
@@ -34,7 +34,7 @@ Route::prefix('Cliente')->group( function (){
     Route::get('show/{id}','ClienteController@show')->name('cliente.show');
     Route::post('store', 'ClienteController@store')->name('cliente.store');
     Route::get('edit/{id}','ClienteController@edit')->name('cliente.edit');
-    Route::put('update/{id}','ClienteController@update')->name('cliente.update');
+    Route::post('update/{id}','ClienteController@update')->name('cliente.update');
     Route::get('delete/{id}','ClienteController@delete')->name('cliente.delete');
     Route::get('destroy/{id}','ClienteController@destroy')->name('cliente.destroy');
 });
