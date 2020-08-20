@@ -14,14 +14,26 @@ class CategoriaAnuncioController extends Controller
 
         $datos['categorias']=CategoriaAnuncio::paginate();
 
-        return view('Publicaciones.GestionarCategoriaAnuncio.indexCategoriaAnuncio',$datos, compact('visitas'));
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
+        return view('Publicaciones.GestionarCategoriaAnuncio.indexCategoriaAnuncio',$datos, compact('visitas','tema'));
     }
 
     public function create(){
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['catanuncio_create']);
         $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['catanuncio_create']);
 
-        return view('Publicaciones.GestionarCategoriaAnuncio.createCategoriaAnuncio', compact('visitas'));
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
+        return view('Publicaciones.GestionarCategoriaAnuncio.createCategoriaAnuncio', compact('visitas','tema'));
     }
 
     public function store(Request $request)
@@ -56,8 +68,14 @@ class CategoriaAnuncioController extends Controller
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['catanuncio_edit']);
         $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['catanuncio_edit']);
 
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+        
         $categoria= CategoriaAnuncio::findOrFail($id);
-        return view('Publicaciones.GestionarCategoriaAnuncio.editCategoriaAnuncio',compact('categoria', 'visitas'));
+        return view('Publicaciones.GestionarCategoriaAnuncio.editCategoriaAnuncio',compact('categoria', 'visitas','tema'));
     }
 
     public function update(Request $request, $id){

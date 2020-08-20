@@ -15,7 +15,13 @@ class SolicitudContactoController extends Controller
 
         $datos['solicitudes']=SolicitudContacto::paginate();
 
-        return view('Publicaciones.GestionarSolicitudContacto.indexSolicitudContacto',$datos, compact('visitas'));
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
+        return view('Publicaciones.GestionarSolicitudContacto.indexSolicitudContacto',$datos, compact('visitas','tema'));
     }
 
     public function create()

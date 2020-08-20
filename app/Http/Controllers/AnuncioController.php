@@ -13,6 +13,11 @@ class AnuncioController extends Controller
     public function index()
     {
         // $datos['anuncios'] = Anuncio::paginate();
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
 
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['anuncio_index']);
         $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['anuncio_index']);
@@ -24,7 +29,7 @@ class AnuncioController extends Controller
             ->get();
 
         // return response()->json($visitas);
-        return view('Publicaciones.GestionarAnuncio.indexAnuncio', $datos, compact('visitas'));
+        return view('Publicaciones.GestionarAnuncio.indexAnuncio', $datos, compact('visitas','tema'));
     }
 
     public function create()
@@ -32,9 +37,15 @@ class AnuncioController extends Controller
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['anuncio_create']);
         $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['anuncio_create']);
 
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
         $abogados = Abogado::all();
         $categorias = CategoriaAnuncio::all();
-        return view('Publicaciones.GestionarAnuncio.createAnuncio', compact('abogados'), compact('categorias', 'visitas'));
+        return view('Publicaciones.GestionarAnuncio.createAnuncio', compact('abogados'), compact('categorias', 'visitas','tema'));
     }
 
     public function store(Request $request)
@@ -84,7 +95,13 @@ class AnuncioController extends Controller
         $abogados = Abogado::all();
         $categorias = CategoriaAnuncio::all();
 
-        return view('Publicaciones.GestionarAnuncio.editAnuncio', compact('anuncio', 'abogados', 'categorias', 'visitas'));
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+        
+        return view('Publicaciones.GestionarAnuncio.editAnuncio', compact('anuncio', 'abogados', 'categorias', 'visitas','tema'));
     }
 
     public function editEstado($id)
