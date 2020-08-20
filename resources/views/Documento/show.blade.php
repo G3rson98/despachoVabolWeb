@@ -58,7 +58,6 @@
                                 <div class="col-12 col-sm-6">
                                     <h3 class="my-3">Título:  {{$documento[0]->doc_titulo}}</h3>
                                     <p>Descripción: {{$documento[0]->doc_descripcion}}</p>
-
                                     <hr>
                                     <p>Subido por: Abg. {{$documento[0]->abg_nombre}} {{$documento[0]->abg_apellidop}} {{$documento[0]->abg_apellidom}}</p>
                                     <p>Para: {{$documento[0]->cl_razonsocial}}</p>
