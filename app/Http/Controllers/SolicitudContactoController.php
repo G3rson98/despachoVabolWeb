@@ -10,9 +10,12 @@ class SolicitudContactoController extends Controller
 {
     public function index()
     {
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['solcontacto_index']);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['solcontacto_index']);
+
         $datos['solicitudes']=SolicitudContacto::paginate();
 
-        return view('Publicaciones.GestionarSolicitudContacto.indexSolicitudContacto',$datos);
+        return view('Publicaciones.GestionarSolicitudContacto.indexSolicitudContacto',$datos, compact('visitas'));
     }
 
     public function create()

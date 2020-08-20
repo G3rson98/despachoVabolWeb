@@ -63,6 +63,13 @@
           
         </tbody>
       </table>
+      <br>
+      <div style="display: flex; justify-content: flex-end">
+        @foreach ($visitas as $visita)
+            <h4>Cantidad de visitas: {{ $visita->numero_visitas }}</h4>
+        @endforeach
+      </div>
+        
 </div>
 
 @endsection()

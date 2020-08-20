@@ -15,6 +15,7 @@ Route::resource('solicitudcontacto', 'SolicitudContactoController');
 Route::get('/solicitudcontacto/{id}/estado', 'SolicitudContactoController@editEstado');
 
 Route::get('/', 'LandingController@getView');
+Route::get('bitacora', 'BitacoraController@index')->name('bitacora');
 
 /* RUTAS GERSON OLIVA*/
 Route::prefix('Abogado')->group( function (){

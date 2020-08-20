@@ -65,6 +65,7 @@
         
 
     <div class="container" style="margin-top: 50px; margin-bottom: 50px">
+        
         {{-- formContacto --}}
         <div class="formContacto">
             {{-- errores --}}
@@ -140,6 +141,12 @@
                     </div>
                 </div>
             
+            @endforeach
+        </div>
+        <br>
+        <div style="display: flex; justify-content: flex-end">
+            @foreach ($visitas as $visita)
+                <h4>Cantidad de visitas: {{ $visita->numero_visitas }}</h4>
             @endforeach
         </div>
     </div>
