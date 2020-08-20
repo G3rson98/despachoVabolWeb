@@ -175,6 +175,12 @@
               </ul>
             </li>
             <li class="nav-item">
+              <a href="{{ route('bitacora') }}" class="nav-link" id="">
+                <button class="btn btn-primary btn-block"><i class="far fa-chart-bar nav-icon"></i> Bitácora</button>
+                
+              </a>
+            </li>
+            <li class="nav-item">
               <form action="{{ route('logout')}}" method="POST">
                 {{csrf_field()}}
                 <button class="btn btn-danger btn-block"> Cerrar sesion</button>
@@ -270,6 +276,10 @@
         modal.find('.modal-body #doc_descripcion').val(doc_descripcion);
         modal.find('.modal-body #doc_id').val(doc_id);
       })
+
+      window.onload = function() {
+          // Theme('#F8F9FA','#212529','#343A40');
+      }
 
       //CAM
       function Theme(colorText,colorBG,colorNavbar){
