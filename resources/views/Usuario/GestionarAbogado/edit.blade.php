@@ -11,7 +11,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" method="POST" action="{{url('Abogado/store')}}">
+                <form role="form" method="POST" action="{{url('Abogado/update/'.$Abogado['abg_ci'])}}">
                     @csrf
                     <div class="card-body">
                         <div class="form-row">
@@ -97,6 +97,7 @@
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
+                    </div>
                 </form>
             </div>
         </div>

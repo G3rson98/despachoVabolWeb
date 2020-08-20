@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class SolicitudContactoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['solcontacto_index']);
