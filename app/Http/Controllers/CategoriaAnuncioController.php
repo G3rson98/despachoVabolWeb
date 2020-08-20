@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CategoriaAnuncio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoriaAnuncioController extends Controller
 {
@@ -12,13 +13,19 @@ class CategoriaAnuncioController extends Controller
         $this->middleware('auth');
     }
     public function index(){
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['catanuncio_index']);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['catanuncio_index']);
+
         $datos['categorias']=CategoriaAnuncio::paginate();
 
-        return view('Publicaciones.GestionarCategoriaAnuncio.indexCategoriaAnuncio',$datos);
+        return view('Publicaciones.GestionarCategoriaAnuncio.indexCategoriaAnuncio',$datos, compact('visitas'));
     }
 
     public function create(){
-        return view('Publicaciones.GestionarCategoriaAnuncio.createCategoriaAnuncio');
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['catanuncio_create']);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['catanuncio_create']);
+
+        return view('Publicaciones.GestionarCategoriaAnuncio.createCategoriaAnuncio', compact('visitas'));
     }
 
     public function store(Request $request)
@@ -50,8 +57,11 @@ class CategoriaAnuncioController extends Controller
     }
 
     public function edit($id){
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['catanuncio_edit']);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['catanuncio_edit']);
+
         $categoria= CategoriaAnuncio::findOrFail($id);
-        return view('Publicaciones.GestionarCategoriaAnuncio.editCategoriaAnuncio',compact('categoria'));
+        return view('Publicaciones.GestionarCategoriaAnuncio.editCategoriaAnuncio',compact('categoria', 'visitas'));
     }
 
     public function update(Request $request, $id){

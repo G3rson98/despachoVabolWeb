@@ -18,21 +18,27 @@ class AnuncioController extends Controller
     {
         // $datos['anuncios'] = Anuncio::paginate();
 
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['anuncio_index']);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['anuncio_index']);
+
         $datos['anuncios'] = DB::table('anuncio')
             ->join('abogado', 'anuncio.anu_abogado', '=', 'abogado.abg_ci')
             ->join('categoriaanuncio', 'anuncio.anu_categoria', '=', 'categoriaanuncio.cat_id')
             ->select('anuncio.*', 'abogado.abg_nombre', 'abogado.abg_apellidop', 'abogado.abg_apellidom', 'categoriaanuncio.cat_nombre')
             ->get();
 
-        // return response()->json($datos);
-        return view('Publicaciones.GestionarAnuncio.indexAnuncio', $datos);
+        // return response()->json($visitas);
+        return view('Publicaciones.GestionarAnuncio.indexAnuncio', $datos, compact('visitas'));
     }
 
     public function create()
     {
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['anuncio_create']);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['anuncio_create']);
+
         $abogados = Abogado::all();
         $categorias = CategoriaAnuncio::all();
-        return view('Publicaciones.GestionarAnuncio.createAnuncio', compact('abogados'), compact('categorias'));
+        return view('Publicaciones.GestionarAnuncio.createAnuncio', compact('abogados'), compact('categorias', 'visitas'));
     }
 
     public function store(Request $request)
@@ -75,11 +81,14 @@ class AnuncioController extends Controller
 
     public function edit($id)
     {
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['anuncio_edit']);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['anuncio_edit']);
+
         $anuncio = Anuncio::findOrFail($id);
         $abogados = Abogado::all();
         $categorias = CategoriaAnuncio::all();
 
-        return view('Publicaciones.GestionarAnuncio.editAnuncio', compact('anuncio', 'abogados', 'categorias'));
+        return view('Publicaciones.GestionarAnuncio.editAnuncio', compact('anuncio', 'abogados', 'categorias', 'visitas'));
     }
 
     public function editEstado($id)
