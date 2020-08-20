@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Usuario;
 use Illuminate\Support\Facades\Auth;
@@ -49,12 +49,10 @@ class LoginController extends Controller
     }
     public function getDatos($email)
     {
-        $Usuario= Usuario::where('email',$email)->get();
-        if ($Usuario['rol'] == 'Abogado') {
-
-            
-        }else if($Usuario['rol'] == 'Cliente'){
-            
-        }
+        $Usuario= DB::table('usuario')
+        ->join('abogado', 'usuario.id', '=', 'abogado.abg_usuario')
+        ->get();
+        
+        
     }
 }

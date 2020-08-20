@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class SolicitudContactoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $datos['solicitudes']=SolicitudContacto::paginate();
