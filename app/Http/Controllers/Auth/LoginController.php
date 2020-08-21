@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Usuario;
@@ -12,34 +13,35 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest',['only' => 'showLoginForm']);
+        $this->middleware('guest', ['only' => 'showLoginForm']);
     }
-    public function showLoginForm(){
+    public function showLoginForm()
+    {
         return view('login');
     }
 
     public function login()
     {
 
-        $credentials=$this->validate(request(),[
+        $credentials = $this->validate(request(), [
             'email' => 'email|required|string',
             'password' => 'required|string'
         ]);
-        $usu_email= $credentials['email'];
-        $usu_contrasena = $credentials ['password'];          
-        if(Auth::attempt(array(
+        $usu_email = $credentials['email'];
+        $usu_contrasena = $credentials['password'];
+        if (Auth::attempt(array(
             'password' => $usu_contrasena,
             'email' => $usu_email
-        ))){            
+        ))) {
             return redirect()->route('dashboard');
             //session()->put('nombre','Gerson');
             //return session()->all();
             //return Auth()->user()->rol;
         }
-            return back()
+        return back()
             ->withErrors(['email' => 'Estas credenciales no concuerdan con nuestros registros'])
             ->withInput(request(['email']));
-    }   
+    }
 
     public function logout()
     {
@@ -49,10 +51,17 @@ class LoginController extends Controller
     }
     public function getDatos($email)
     {
-        $Usuario= DB::table('usuario')
-        ->join('abogado', 'usuario.id', '=', 'abogado.abg_usuario')
-        ->get();
-        
-        
+        $Usuario = DB::table('usuario')
+            ->where('email', $email)
+            ->get();
+        if ($Usuario->rol == 'Administrado' || $Usuario->rol == 'Abogado') {
+            $Usuario = DB::table('usuario')
+                ->join('abogado', 'usuario.id', '=', 'abogado.abg_usuario')
+                ->get();
+        }else{
+            $Usuario = DB::table('usuario')
+                ->join('cliente', 'usuario.id', '=', 'cliente.cl_usuario')
+                ->get();
+        }
     }
 }

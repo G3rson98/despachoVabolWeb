@@ -104,6 +104,7 @@ class ClienteController extends Controller
         $cliente->cl_razonsocial = $request['cl_razonsocial'];
         $cliente->cl_rubro = $request['cl_rubro'];
         $cliente->cl_telefono = $request['cl_telefono'];
+        $cliente->cl_usuario = $usuario['id'];
         $cliente->save();
         return redirect()->route('cliente.index');                             
     }
