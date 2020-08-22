@@ -14,6 +14,12 @@ class BitacoraController extends Controller
 
         $datos = DB::select('select * from bitacora order by id_bitacora');
 
-        return view('bitacora', compact('visitas','datos'));
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
+        return view('bitacora', compact('visitas','datos','tema'));
     }
 }
