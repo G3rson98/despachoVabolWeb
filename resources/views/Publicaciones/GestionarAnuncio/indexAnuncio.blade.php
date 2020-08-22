@@ -65,9 +65,10 @@
       </table>
       <br>
       <div style="display: flex; justify-content: flex-end">
-        @foreach ($visitas as $visita)
+        {{-- @foreach ($visitas as $visita)
             <h4>Cantidad de visitas: {{ $visita->numero_visitas }}</h4>
-        @endforeach
+        @endforeach --}}
+        <h4>Cantidad de visitas: {{ $visitas[0]->numero_visitas }}</h4>
       </div>
         
 </div>

@@ -17,15 +17,18 @@ class AnuncioController extends Controller
     public function index()
     {
         // $datos['anuncios'] = Anuncio::paginate();
+        //TEMAS
         $tema = [
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
         ];
-
+        //TEMAS
+        
+        //VISITAS
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['anuncio_index']);
         $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['anuncio_index']);
-
+        //VISITAS
         $datos['anuncios'] = DB::table('anuncio')
             ->join('abogado', 'anuncio.anu_abogado', '=', 'abogado.abg_ci')
             ->join('categoriaanuncio', 'anuncio.anu_categoria', '=', 'categoriaanuncio.cat_id')
