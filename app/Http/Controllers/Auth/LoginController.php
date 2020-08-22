@@ -33,6 +33,7 @@ class LoginController extends Controller
             'password' => $usu_contrasena,
             'email' => $usu_email
         ))) {
+            $this->getDatos($usu_email);            
             return redirect()->route('dashboard');
             //session()->put('nombre','Gerson');
             //return session()->all();
@@ -46,22 +47,21 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        session()->forget('nombre');
+        session()->forget('Usuario');
         return redirect('/');
     }
-    public function getDatos($email)
+    private function getDatos($email)
     {
-        $Usuario = DB::table('usuario')
-            ->where('email', $email)
-            ->get();
-        if ($Usuario->rol == 'Administrado' || $Usuario->rol == 'Abogado') {
-            $Usuario = DB::table('usuario')
-                ->join('abogado', 'usuario.id', '=', 'abogado.abg_usuario')
-                ->get();
+        $Usuario = Usuario::where('email', $email)->first();
+        if ($Usuario->rol == 'Administrador' || $Usuario->rol == 'Abogado') {
+            $tabla='abogado';
+            $foreignKey = 'abg_usuario';
         }else{
-            $Usuario = DB::table('usuario')
-                ->join('cliente', 'usuario.id', '=', 'cliente.cl_usuario')
-                ->get();
+            $tabla='cliente';
+            $foreignKey = 'cl_usuario';
         }
+
+        $UsuarioLogueado = Usuario::where('email', $email)->join($tabla, 'usuario.id', '=', $foreignKey)->first();
+        session()->put('Usuario',$UsuarioLogueado);        
     }
 }
