@@ -61,7 +61,8 @@
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4" id="mainSideBar">
+    {{-- sidebar-dark-primary --}}
+    <aside class="main-sidebar elevation-4" id="mainSideBar">
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link" id="NavLogo">
         <img src="/dist/img/logoV.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -208,9 +209,30 @@
             <div class="p-3">
               <h5>¿Qué tema quieres?</h5>
               <div class="d-flex flex-wrap mb-3">
-                <div class="bg-gray elevation-2" onclick="Theme('#F8F9FA','#212529','#343A40');" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
+                <form action="{{ url('/tema/temaDark') }}" role="form" method="POST">
+                  {{ csrf_field() }}
+                  <input type="hidden" class="form-control" name="colora" value="#343A40">
+                  <input type="hidden" class="form-control" name="colorb" value="#212529">
+                  <input type="hidden" class="form-control" name="colorc" value="#F8F9FA">
+                  <button type="submit" class="btn bg-gray elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></button>
+                </form>
+                <form action="{{ url('/tema/temaLight') }}" role="form" method="POST">
+                  {{ csrf_field() }}
+                  <input type="hidden" class="form-control" name="colora" value="#EFF1F3">
+                  <input type="hidden" class="form-control" name="colorb" value="#FFFFFF">
+                  <input type="hidden" class="form-control" name="colorc" value="#2176FF">
+                  <button type="submit" class="btn bg-light elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></button>
+                </form>
+                <form action="{{ url('/tema/temaColor') }}" role="form" method="POST">
+                  {{ csrf_field() }}
+                  <input type="hidden" class="form-control" name="colora" value="#D80032">
+                  <input type="hidden" class="form-control" name="colorb" value="#BFC0C0">
+                  <input type="hidden" class="form-control" name="colorc" value="#F8F9FA">
+                  <button type="submit" class="btn bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></button>
+                </form>
+                {{-- <div class="bg-gray elevation-2" onclick="Theme('#F8F9FA','#212529','#343A40');" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
                 <div class="bg-light elevation-2" onclick="Theme('#2176ff','#ffffff','#eff1f3');" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-                <div class="bg-danger elevation-2" onclick="Theme('#F8F9FA','#bfc0c0','#D80032');" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
+                <div class="bg-danger elevation-2" onclick="Theme('#F8F9FA','#bfc0c0','#D80032');" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div> --}}
               </div>
             </div>
           </aside>
@@ -278,7 +300,11 @@
       })
 
       window.onload = function() {
-          // Theme('#F8F9FA','#212529','#343A40');
+        let colora = @json($tema['colora']);
+        let colorb = @json($tema['colorb']);
+        let colorc = @json($tema['colorc']);
+        Theme(colorc,colorb,colora);
+        // Theme('#F8F9FA','#212529','#343A40');
       }
 
       //CAM

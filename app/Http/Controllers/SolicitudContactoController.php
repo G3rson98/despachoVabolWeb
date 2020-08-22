@@ -19,7 +19,13 @@ class SolicitudContactoController extends Controller
 
         $datos['solicitudes']=SolicitudContacto::paginate();
 
-        return view('Publicaciones.GestionarSolicitudContacto.indexSolicitudContacto',$datos, compact('visitas'));
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
+        return view('Publicaciones.GestionarSolicitudContacto.indexSolicitudContacto',$datos, compact('visitas','tema'));
     }
 
     public function create()
@@ -57,6 +63,15 @@ class SolicitudContactoController extends Controller
         $solicitud->sol_fecha = date('Y-m-d');
         $solicitud->save();
 
+        //Insercion Bitacora
+
+        $fecha = date('Y-m-d');
+        date_default_timezone_set("America/La_Paz");
+        $hora = date("G:i:s");
+
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', ['Un invitado.', 'Registró una solicitud de contacto.',$fecha,$hora]);
+        //Insercion Bitacora
+
         return redirect('/');
         // $datosAnuncio = request()->except(['_token']);
         // return response()->json($datosAnuncio);
@@ -64,11 +79,26 @@ class SolicitudContactoController extends Controller
 
     public function editEstado($id)
     {
+        $abogados = DB::select('select * from abogado where abg_usuario = ?', [auth()->user()->id]);
+        
         $solicitud = SolicitudContacto::findOrFail($id);
         $solicitud->sol_estado = "Revisado";
-        $solicitud->sol_abogado = 30;
+
+        foreach ($abogados as $abg) {
+            $solicitud->sol_abogado = $abg->abg_ci;
+        }
         
         $solicitud->update();
+
+        //Insercion Bitacora
+
+        $fecha = date('Y-m-d');
+        date_default_timezone_set("America/La_Paz");
+        $hora = date("G:i:s");
+
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Revisó una solicitud de contacto.',$fecha,$hora]);
+        //Insercion Bitacora
+
         return redirect('solicitudcontacto');
     }
 }

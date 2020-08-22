@@ -31,7 +31,7 @@
             <label for="anu_contenido">Contenido</label>
             <input type="text" class="form-control" name="anu_contenido" id="anu_contenido" placeholder="Ingresar Contenido">
         </div>
-        <div class="form-group">
+        {{-- <div class="form-group">
           <label for="anu_abogado">Abogado</label>
           <select class="form-control select2" style="width: 100%;" name="anu_abogado" id="anu_abogado">
             <option value="">Seleccione un abogado...</option>
@@ -39,7 +39,7 @@
               <option value="{{ $abogado['abg_ci'] }}">{{ $abogado['abg_nombre'] }} {{ $abogado['abg_apellidop'] }} {{ $abogado['abg_apellidom'] }}</option>
             @endforeach
           </select>
-      </div>
+      </div> --}}
       <div class="form-group">
         <label for="anu_categoria">Categoría</label>
         <select class="form-control select2" style="width: 100%;" name="anu_categoria" id="anu_categoria">
