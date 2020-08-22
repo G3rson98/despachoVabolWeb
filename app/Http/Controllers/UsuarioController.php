@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -43,9 +45,9 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        return view('Usuario.GestionarUsuario.show');
     }
 
     /**
@@ -66,9 +68,31 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $campos=[           
+           // 'password' => 'nullable|min:8',
+          //  'password_Confirm' => 'nullable|same:password',
+            'picture'=> 'mimes:jpeg'
+        ];
+        $Mensaje = [                      
+        //    "password.min" => 'La contraseña debe contener al menos 8 caracteres',
+        //    "password_Confirm.same" => 'Las contraseñas no coinciden',
+            "picture.mimes" => 'La foto de perfil debe ser formatos png o jpg',
+        ];
+
+        $Usuario = new Usuario();
+        $Usuario = Usuario::where('email',auth()->user()->email);
+       // $Usuario->password = Hash::make($request->password);
+
+        $this->validate($request,$campos,$Mensaje);
+        if ($request->hasFile('picture')) {
+            $Usuario->picture = $request->file('picture')->store('userPicture','public');
+        }
+        return $Usuario;
+        /*$Usuario->update();
+        return redirect()->route('dashboard');*/
+
     }
 
     /**
@@ -79,6 +103,6 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

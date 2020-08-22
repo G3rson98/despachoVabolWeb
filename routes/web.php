@@ -42,6 +42,10 @@ Route::prefix('Cliente')->group( function (){
     Route::get('delete/{id}','ClienteController@delete')->name('cliente.delete');
     Route::get('destroy/{id}','ClienteController@destroy')->name('cliente.destroy');
 });
+Route::prefix('Usuario')->group( function (){    
+    Route::get('show','UsuarioController@show')->name('Usuario.show');      
+    Route::post('update','UsuarioController@update')->name('Usuario.update');    
+});
 
 Route::post('login','Auth\LoginController@login')->name('login');
 Route::post('logout','Auth\LoginController@logout')->name('logout');
