@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-<div class="card-body">
+<div class="card-body p-0">
     <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
         <div class="row">
             <div class="col-sm-12 col-md-6"></div>
@@ -46,8 +46,8 @@
                             <td class="" tabindex="0">{{$Cliente->cl_telefono}}</td>                            
                             <td class="" tabindex="0">
                                 <div class="btn-group btn-group-sm">
-                                    <a href="{{url('Cliente/edit',$Cliente->abg_ci)}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
-                                    <a href="{{url('Cliente/destroy',$Cliente->abg_ci)}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                    <a href="{{url('Cliente/edit',$Cliente->cl_nit)}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                                    <a href="{{url('Cliente/destroy',$Cliente->cl_nit)}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                 </div>
                             </td>                            
                         </tr>

@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class CategoriaAnuncioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(){
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['catanuncio_index']);
         $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['catanuncio_index']);

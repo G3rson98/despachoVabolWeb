@@ -47,7 +47,7 @@
                             <td class="" tabindex="0">
                                 <div class="btn-group btn-group-sm">
                                     <a href="{{url('Abogado/edit',$Abogado->abg_ci)}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
-                                    <a href="{{url('abogado/destroy',$Abogado->abg_ci)}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                    <a href="{{url('Abogado/destroy',$Abogado->abg_ci)}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                 </div>
                             </td>                            
                         </tr>
