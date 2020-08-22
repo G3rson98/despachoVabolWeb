@@ -18,14 +18,26 @@ class CategoriaAnuncioController extends Controller
 
         $datos['categorias']=CategoriaAnuncio::paginate();
 
-        return view('Publicaciones.GestionarCategoriaAnuncio.indexCategoriaAnuncio',$datos, compact('visitas'));
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
+        return view('Publicaciones.GestionarCategoriaAnuncio.indexCategoriaAnuncio',$datos, compact('visitas','tema'));
     }
 
     public function create(){
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['catanuncio_create']);
         $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['catanuncio_create']);
 
-        return view('Publicaciones.GestionarCategoriaAnuncio.createCategoriaAnuncio', compact('visitas'));
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
+        return view('Publicaciones.GestionarCategoriaAnuncio.createCategoriaAnuncio', compact('visitas','tema'));
     }
 
     public function store(Request $request)
@@ -47,11 +59,29 @@ class CategoriaAnuncioController extends Controller
 
         CategoriaAnuncio::insert($datosCategoria);
 
+        //Insercion Bitacora
+
+        $fecha = date('Y-m-d');
+        date_default_timezone_set("America/La_Paz");
+        $hora = date("G:i:s");
+
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Registró una categoría de anuncio.',$fecha,$hora]);
+        //Insercion Bitacora
+
         return redirect('categoriaanuncio');
     }
 
     public function destroy ($id){
         CategoriaAnuncio::destroy($id);
+        
+        //Insercion Bitacora
+
+        $fecha = date('Y-m-d');
+        date_default_timezone_set("America/La_Paz");
+        $hora = date("G:i:s");
+
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Eliminó una categoría de anuncio.',$fecha,$hora]);
+        //Insercion Bitacora
 
         return redirect('categoriaanuncio');
     }
@@ -60,8 +90,14 @@ class CategoriaAnuncioController extends Controller
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['catanuncio_edit']);
         $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['catanuncio_edit']);
 
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+        
         $categoria= CategoriaAnuncio::findOrFail($id);
-        return view('Publicaciones.GestionarCategoriaAnuncio.editCategoriaAnuncio',compact('categoria', 'visitas'));
+        return view('Publicaciones.GestionarCategoriaAnuncio.editCategoriaAnuncio',compact('categoria', 'visitas','tema'));
     }
 
     public function update(Request $request, $id){
@@ -81,6 +117,15 @@ class CategoriaAnuncioController extends Controller
         
         $datosCategoria=request()->except(['_token','_method']);
         CategoriaAnuncio::where('cat_id','=',$id)->update($datosCategoria);
+
+        //Insercion Bitacora
+
+        $fecha = date('Y-m-d');
+        date_default_timezone_set("America/La_Paz");
+        $hora = date("G:i:s");
+
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Modificó una categoría de anuncio.',$fecha,$hora]);
+        //Insercion Bitacora
 
         return redirect('categoriaanuncio');
     }
