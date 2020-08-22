@@ -3,7 +3,17 @@
 @section('content')
 <br>
 <div class="container">
-    
+    {{-- errores --}}
+    @if (count($errors)>0)
+        <div class="alert alert-default-danger" role="alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li> {{ $error }} </li>
+            @endforeach
+        </ul>
+        </div>
+    @endif
+    {{-- errores --}}
     <div class="card card-primary card-outline">
         <div class="card-header">
             <h3 class="card-title">Documento</h3>
@@ -48,7 +58,6 @@
                                 <div class="col-12 col-sm-6">
                                     <h3 class="my-3">Título:  {{$documento[0]->doc_titulo}}</h3>
                                     <p>Descripción: {{$documento[0]->doc_descripcion}}</p>
-
                                     <hr>
                                     <p>Subido por: Abg. {{$documento[0]->abg_nombre}} {{$documento[0]->abg_apellidop}} {{$documento[0]->abg_apellidom}}</p>
                                     <p>Para: {{$documento[0]->cl_razonsocial}}</p>
@@ -60,12 +69,14 @@
                                             <i class="fas fa-download"></i>
                                                 Descargar
                                         </a>
+                                        @if(auth()->user()->rol == 'Administrador' || auth()->user()->rol == 'Abogado')
                                         <button href="#" id="edit_documento" class="btn btn-primary btn-lg btn-flat" data-myid="{{$documento[0]->doc_id}}" data-mydescripcion="{{$documento[0]->doc_descripcion}}" data-toggle="modal" data-target="#editdocumento"> <i class="fas fa-edit"></i>Editar</button>
                                         <form method="post" action="{{route('documento.destroy',  $documento[0]->doc_id)}}" style="display: inline">
                                             {{csrf_field()}}
                                             {{method_field('DELETE')}}
-                                            <button  class="btn btn-warning btn-lg btn-flat" type="submit"> <i class="fas fa-trash-alt"></i> Eliminar </button>
+                                            <button  class="btn btn-warning btn-lg btn-flat" type="submit" onclick="return confirm('¿Seguro que desea eliminar el documento?');"> <i class="fas fa-trash-alt"></i> Eliminar </button>
                                         </form>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -78,17 +89,6 @@
     </div>
 
     <div class="card direct-chat direct-chat-warning card-warning">
-        {{-- errores --}}
-        @if (count($errors)>0)
-            <div class="alert alert-default-danger" role="alert">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li> {{ $error }} </li>
-                @endforeach
-            </ul>
-            </div>
-        @endif
-        {{-- errores --}}
         <div class="card-header ">
             <h3 class="card-title">Comentarios</h3>
                 <div class="card-tools">
@@ -107,12 +107,14 @@
                         <img class="direct-chat-img" src="/dist/img/user1-128x128.jpg" alt="message user image">
                         <div class="direct-chat-text">
                             {{$comdoc->com_contenido}}
-                            <button href="#" id="edit_item" class="btn" data-myid="{{$comdoc->com_id}}" data-mycontent="{{$comdoc->com_contenido}}" data-mydoc="{{$comdoc->com_doc}}" data-myuser="{{$comdoc->com_usuario}}" data-toggle="modal" data-target="#edit"><i class="fas fa-edit"></i></button>
-                            <form method="post" action="{{route('comentario.destroy', $comdoc->com_id)}}" style="display: inline">
-                                    {{csrf_field()}}
-                                    {{method_field('DELETE')}}
-                                    <button  class="btn" type="submit" onclick="return confirm('¿Seguro que desea eliminar el comentario?');"><i class="fas fa-trash-alt"></i></i></button>
-                            </form>
+                                @if(auth()->user()->id == $comdoc->com_usuario)
+                                    <button href="#" id="edit_item" class="btn" data-myid="{{$comdoc->com_id}}" data-mycontent="{{$comdoc->com_contenido}}" data-mydoc="{{$comdoc->com_doc}}" data-myuser="{{$comdoc->com_usuario}}" data-toggle="modal" data-target="#edit"><i class="fas fa-edit"></i></button>
+                                    <form method="post" action="{{route('comentario.destroy', $comdoc->com_id)}}" style="display: inline">
+                                            {{csrf_field()}}
+                                            {{method_field('DELETE')}}
+                                            <button  class="btn" type="submit" onclick="return confirm('¿Seguro que desea eliminar el comentario?');"><i class="fas fa-trash-alt"></i></i></button>
+                                    </form>
+                                @endif
                             
                         </div>
                     </div>
@@ -191,7 +193,7 @@
                     <label for="catdoc_nombre">Descripción: </label>
                     <textarea  class="form-control" name="doc_descripcion" id="doc_descripcion"></textarea>
                 </div>
-                    <input type="text" class="form-control" name="doc_id" id="doc_id">
+                    <input type="hidden" class="form-control" name="doc_id" id="doc_id">
                     <button type="submit" class="btn btn-primary btn-bottom-right">Editar</button>
             </div>
                 

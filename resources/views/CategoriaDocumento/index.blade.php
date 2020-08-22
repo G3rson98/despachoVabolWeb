@@ -4,8 +4,9 @@
     <br>
     <h1>Categoría documento: </h1>
     <br>
-
-    <a href="{{ route('categoriadocumento.create') }}" class="btn btn-success " style="text_align:right">Registrar nuevo +</a>
+    @if(auth()->user()->rol == 'Administrador' || auth()->user()->rol == 'Abogado')
+        <a href="{{ route('categoriadocumento.create') }}" class="btn btn-success " style="text_align:right">Registrar nuevo +</a>
+    @endif
     <br>
     <br>
 
@@ -34,12 +35,14 @@
                                 <td>{{$catdoc->catdoc_descripcion}}</td>
                                 <td>
                                     <a href="{{ route('documento.documentosPorCategoria', $catdoc->catdoc_id) }}" class="btn btn-info">Ver Documentos</a>
+                                    @if(auth()->user()->rol == 'Administrador' || auth()->user()->rol == 'Abogado')
                                     <a href="{{ route('categoriadocumento.edit', $catdoc->catdoc_id) }}" class="btn btn-primary">Editar</a>
                                     <form method="post" action="{{route('categoriadocumento.destroy', $catdoc->catdoc_id)}}" style="display: inline">
                                         {{csrf_field()}}
                                         {{method_field('DELETE')}}
                                         <button  class="btn btn-danger" type="submit" onclick="return confirm('¿Seguro que desea eliminar la categoría documento?');">Eliminar</button>
                                     </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

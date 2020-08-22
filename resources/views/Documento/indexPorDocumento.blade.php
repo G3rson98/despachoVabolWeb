@@ -8,7 +8,7 @@
         </div>
         <div class="card-footer bg-white">
                 <div class="row">
-                    @if($documentosPorCategoria->count())  
+                    @if(count($documentosPorCategoria))  
                         @foreach($documentosPorCategoria as $docCat) 
                         <div class="col-md-3">
                             <div class="panel panel-default">
