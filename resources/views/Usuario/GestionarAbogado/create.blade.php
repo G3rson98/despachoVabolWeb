@@ -126,13 +126,18 @@
                             </div>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+
+
                     </div>
                 </form>
             </div>
         </div>
+    </div>
+</div>
+<div class="text-muted">
+    <div style="display: flex; justify-content: flex-end">
+        <h4>Cantidad de visitas: {{ $visitas[0]->numero_visitas }}</h4>
     </div>
 </div>
 

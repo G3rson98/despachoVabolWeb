@@ -43,13 +43,13 @@
                             <td class="" tabindex="0">{{$Abogado->abg_genero}}</td>
                             <td class="" tabindex="0">{{$Abogado->abg_nrocolabogados}}</td>
                             <td class="" tabindex="0">{{$Abogado->abg_nrominjusticia}}</td>
-                            <td class="" tabindex="0">{{$Abogado->abg_numregcorte}}</td>                            
+                            <td class="" tabindex="0">{{$Abogado->abg_numregcorte}}</td>
                             <td class="" tabindex="0">
                                 <div class="btn-group btn-group-sm">
                                     <a href="{{url('Abogado/edit',$Abogado->abg_ci)}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
                                     <a href="{{url('Abogado/destroy',$Abogado->abg_ci)}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                 </div>
-                            </td>                            
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -71,38 +71,16 @@
                 </table>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-5">
-                <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
-            </div>
-            <div class="col-sm-12 col-md-7">
-                <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                    <ul class="pagination">
-                        <li class="paginate_button page-item previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                        <li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                        <li class="paginate_button page-item next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 
-<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script>
-    $(function() {
-        $("#example1").DataTable({
-            "responsive": true,
-            "autoWidth": false,
-        });
-    });
-</script>
+<div class="card-footer text-muted">
+
+    <div style="display: flex; justify-content: flex-end">
+        <h4>Cantidad de visitas: {{ $visitas[0]->numero_visitas }}</h4>
+    </div>
+
+</div>
+
 @endsection
