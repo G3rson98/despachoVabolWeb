@@ -204,4 +204,20 @@ class DocumentoController extends Controller
 
         return Storage::download('public/'.$documento->doc_url, $documento->doc_titulo);
     }
+
+    public function estadistica(){
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+        $junio      = DB::select("select count(*) from documento where doc_fechasubida >= '2020-06-01' and doc_fechasubida<= '2020-06-30'");
+        $julio      = DB::select("select count(*) from documento where doc_fechasubida >= '2020-07-01' and doc_fechasubida<= '2020-07-31'");
+        $agosto     = DB::select("select count(*) from documento where doc_fechasubida >= '2020-08-01' and doc_fechasubida<= '2020-08-31'");
+        $septiembre = DB::select("select count(*) from documento where doc_fechasubida >= '2020-09-01' and doc_fechasubida<= '2020-08-30'");
+
+        $listaDocumentos = [$junio[0]->count, $julio[0]->count, $agosto[0]->count, $septiembre[0]->count];
+
+        return view('Documento.estadisticas', compact('tema', 'listaDocumentos'));
+    }
 }
