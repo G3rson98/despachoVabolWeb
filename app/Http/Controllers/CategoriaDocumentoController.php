@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\CategoriaDocumento;
+use Illuminate\Support\Facades\DB;
 
 class CategoriaDocumentoController extends Controller
 {
@@ -15,12 +16,31 @@ class CategoriaDocumentoController extends Controller
     public function index()
     {
         $categoriasDocumento = CategoriaDocumento::all();
-        return view('CategoriaDocumento.index',compact('categoriasDocumento'));
+
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['catdocumento_index']);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['catdocumento_index']);
+
+        return view('CategoriaDocumento.index',compact('categoriasDocumento', 'visitas', 'tema'));
     }
 
     public function create()
     {
-        return view('CategoriaDocumento.create');
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['catdocumento_create']);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['catdocumento_create']);
+
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
+        return view('CategoriaDocumento.create', compact('visitas' ,'tema'));
     }
 
     public function store(Request $request)
@@ -46,8 +66,16 @@ class CategoriaDocumentoController extends Controller
         $categoriaDocumento->catdoc_descripcion = $request->input('catdoc_descripcion');
         $categoriaDocumento->save();
 
+        //Insercion Bitacora
+
+        date_default_timezone_set("America/La_Paz");
+        $fecha = date('Y-m-d');
+        $hora = date("G:i:s");
+
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Registró una categoría documento.',$fecha,$hora]);
+        //Insercion Bitacora
+
         return redirect()->route('categoriadocumento.create');
-        
     }
 
     public function show($id)
@@ -58,7 +86,17 @@ class CategoriaDocumentoController extends Controller
     public function edit($id)
     {
         $categoriaDocumento=CategoriaDocumento::find($id);
-        return view('CategoriaDocumento.edit',compact('categoriaDocumento'));
+
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['catdocumento_edit']);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['catdocumento_edit']);
+
+        return view('CategoriaDocumento.edit',compact('categoriaDocumento', 'tema', 'visitas'));
     }
 
     public function update(Request $request, $id)
@@ -81,6 +119,14 @@ class CategoriaDocumentoController extends Controller
         
         $categoriaDocumento = CategoriaDocumento::find($id);
         $categoriaDocumento->update($request->all());
+
+        //Insercion Bitacora
+        date_default_timezone_set("America/La_Paz");
+        $fecha = date('Y-m-d');
+        $hora = date("G:i:s");
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Editó una categoría documento.',$fecha,$hora]);
+        //Insercion Bitacora
+
         return redirect()->route('categoriadocumento.index');
     }
 
@@ -88,6 +134,14 @@ class CategoriaDocumentoController extends Controller
     {
         $categoriaDocumento = CategoriaDocumento::find($id);
         $categoriaDocumento->delete();
+
+        //Insercion Bitacora
+        date_default_timezone_set("America/La_Paz");
+        $fecha = date('Y-m-d');
+        $hora = date("G:i:s");
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Eliminó una categoría documento.',$fecha,$hora]);
+        //Insercion Bitacora
+
         return redirect()->route('categoriadocumento.index');
     }
 }

@@ -34,7 +34,17 @@ class DocumentoController extends Controller
         }
 
         $categoria = CategoriaDocumento::find($id);
-        return view('Documento.indexPorDocumento',compact('documentosPorCategoria', 'categoria'));
+
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['documento_index']);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['documento_index']);
+
+        return view('Documento.indexPorDocumento',compact('documentosPorCategoria', 'categoria', 'tema', 'visitas'));
         // $documentosPorCategoria = CategoriaDocumento::find($id)->documento;
         // $categoria = CategoriaDocumento::find($id);
         // return view('Documento.indexPorDocumento',compact('documentosPorCategoria', 'categoria'));
@@ -45,13 +55,23 @@ class DocumentoController extends Controller
     {
         $clientes = Cliente::all();
         $categorias = CategoriaDocumento::all();
-        return view('Documento.create', compact('clientes', 'categorias'));
+
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['documento_create']);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['documento_create']);
+
+        return view('Documento.create', compact('clientes', 'categorias', 'tema', 'visitas'));
     }
 
     public function store(Request $request)
     {
          //Validation
-         $campos=[
+        $campos=[
             'doc_descripcion' => 'required|string|max:125',
             'doc_cliente' => 'required|integer',
             'doc_categoriadoc' => 'required|integer',
@@ -76,22 +96,31 @@ class DocumentoController extends Controller
         $idAbogado = $resAbog[0]->abg_ci;
         
         if($request->hasFile('doc_url')){
-           date_default_timezone_set("America/La_Paz");
-           $originalName = $request->doc_url->getClientOriginalName();
-           $filename = time().'_'.$request->doc_url->getClientOriginalName();
-           $request->doc_url->storeAs('public/upload', $filename);
-           $documento = new Documento();
-           $documento->doc_titulo = $originalName;
-           $documento->doc_descripcion = $request->input('doc_descripcion');           
-           $documento->doc_fechasubida = date('Y-m-d');
-           $documento->doc_horasubida  = date("G:i:s");
-           $documento->doc_url = 'upload/'.$filename;
-           $documento->doc_cliente = $request->input('doc_cliente');
-           $documento->doc_abogado = $idAbogado; 
-           $documento->doc_categoriadoc = $request->input('doc_categoriadoc');
-           $documento->doc_idmail = 1; 
-           $documento->save();
+            date_default_timezone_set("America/La_Paz");
+            $originalName = $request->doc_url->getClientOriginalName();
+            $filename = time().'_'.$request->doc_url->getClientOriginalName();
+            $request->doc_url->storeAs('public/upload', $filename);
+            $documento = new Documento();
+            $documento->doc_titulo = $originalName;
+            $documento->doc_descripcion = $request->input('doc_descripcion');           
+            $documento->doc_fechasubida = date('Y-m-d');
+            $documento->doc_horasubida  = date("G:i:s");
+            $documento->doc_url = 'upload/'.$filename;
+            $documento->doc_cliente = $request->input('doc_cliente');
+            $documento->doc_abogado = $idAbogado; 
+            $documento->doc_categoriadoc = $request->input('doc_categoriadoc');
+            $documento->doc_idmail = 1; 
+            $documento->save();
+
+            //Insercion Bitacora
+                date_default_timezone_set("America/La_Paz");
+                $fecha = date('Y-m-d');
+                $hora = date("G:i:s");
+                DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Subió un documento.',$fecha,$hora]);
+            //Insercion Bitacora
         }
+
+
         return redirect()->route('documento.create');
     }
 
@@ -101,7 +130,17 @@ class DocumentoController extends Controller
         $comentariosDoc = DB::select('select * from comentario, usuario where com_usuario = id and com_doc = ?', [$id]);
         $imagenDocumento = $documento[0]->doc_titulo;
         $extensionArchivo = pathinfo($imagenDocumento, PATHINFO_EXTENSION);
-        return view('Documento.show',compact('documento','comentariosDoc', 'extensionArchivo'));
+
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['documento_show']);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['documento_show']);
+
+        return view('Documento.show',compact('documento','comentariosDoc', 'extensionArchivo', 'tema', 'visitas'));
     }
 
     public function edit($id)
@@ -124,22 +163,45 @@ class DocumentoController extends Controller
         //--Validation
         $documento = Documento::find($request->input('doc_id'));
         $documento->update($request->all());
+
+        //Insercion Bitacora
+        date_default_timezone_set("America/La_Paz");
+        $fecha = date('Y-m-d');
+        $hora = date("G:i:s");
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Editó un documento.',$fecha,$hora]);
+        //Insercion Bitacora
+
         return $this->show($documento->doc_id);
     }
 
     public function destroy($id)
     {
         $documento = Documento::find($id);
+        $idCategoria = $documento->doc_categoriadoc;
         if(Storage::delete('public/'.$documento->doc_url)){
             
             $documento->delete();
-            return "Se eliminó";
+            //Insercion Bitacora
+                date_default_timezone_set("America/La_Paz");
+                $fecha = date('Y-m-d');
+                $hora = date("G:i:s");
+                DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Eliminó un documento.',$fecha,$hora]);
+            //Insercion Bitacora
+            return  redirect()->route('documento.documentosPorCategoria', ['id' => $idCategoria]);
         }
-        return "No se eliminó";
+        return  redirect()->route('documento.documentosPorCategoria', ['id' => $idCategoria]);
     }
 
     public function download($id){
         $documento = Documento::find($id);
+
+        //Insercion Bitacora
+        date_default_timezone_set("America/La_Paz");
+        $fecha = date('Y-m-d');
+        $hora = date("G:i:s");
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Descargó un documento.',$fecha,$hora]);
+        //Insercion Bitacora
+
         return Storage::download('public/'.$documento->doc_url, $documento->doc_titulo);
     }
 }

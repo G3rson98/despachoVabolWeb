@@ -198,12 +198,16 @@
             </div>
                 
         </form>
-      </div>
-      <div class="modal-footer">
+    </div>
+    <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-      </div>
+    </div>
     </div>
   </div>
+</div>
+
+<div style="display: flex; justify-content: flex-end">
+        <h4>Cantidad de visitas: {{ $visitas[0]->numero_visitas }}</h4>
 </div>
 
 @endsection()
