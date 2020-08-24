@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Documento;
 use App\CategoriaDocumento;
 use App\Cliente;
+use App\Abogado;
 use Illuminate\Support\Facades\DB;
 
 
@@ -21,16 +22,18 @@ class DocumentoController extends Controller
     {
         $idUsuario = auth()->user()->id ;
         $rol = auth()->user()->rol;
+        $cliente = new Cliente();
+        $documento = new Documento();
+        $abogado = new Abogado();
 
         if ($rol == "Cliente") {
-            $respCliente = DB::select('select cl_nit from cliente where cl_usuario = ?', [$idUsuario]);
-            $idCliente = $respCliente[0]->cl_nit;
-            $documentosPorCategoria = DB::select('select * from documento where doc_categoriadoc = ? and doc_cliente = ?', [$id, $idCliente]);
-            
+            $respCliente = $cliente->select('cl_nit')->where('cl_usuario', $idUsuario)->first();
+            $idCliente = $respCliente->cl_nit;
+            $documentosPorCategoria = $documento->select('*')->where('doc_categoriadoc', $id)->where('doc_cliente', $idCliente)->get();
         }else{
-            $resAbog = DB::select('select abg_ci from abogado where abg_usuario = ?', [$idUsuario]);
-            $idAbogado = $resAbog[0]->abg_ci;
-            $documentosPorCategoria = DB::select('select * from documento where doc_categoriadoc = ? and doc_abogado = ?', [$id, $idAbogado]);
+            $resAbog = $abogado->select('abg_ci')->where('abg_usuario', $idUsuario)->first();
+            $idAbogado = $resAbog->abg_ci;
+            $documentosPorCategoria = $documento->select('*')->where('doc_categoriadoc', $id)->where('doc_abogado', $idAbogado)->get();
         }
 
         $categoria = CategoriaDocumento::find($id);
@@ -45,9 +48,6 @@ class DocumentoController extends Controller
         $visitas = DB::select('select * from visitas where nombre_pagina = ?', ['documento_index']);
 
         return view('Documento.indexPorDocumento',compact('documentosPorCategoria', 'categoria', 'tema', 'visitas'));
-        // $documentosPorCategoria = CategoriaDocumento::find($id)->documento;
-        // $categoria = CategoriaDocumento::find($id);
-        // return view('Documento.indexPorDocumento',compact('documentosPorCategoria', 'categoria'));
     }
 
 
@@ -92,10 +92,12 @@ class DocumentoController extends Controller
         //--Validation
 
         $idUsuario = auth()->user()->id ;
-        $resAbog = DB::select('select abg_ci from abogado where abg_usuario = ?', [$idUsuario]);
-        $idAbogado = $resAbog[0]->abg_ci;
+        $abogado = new Abogado();
+        $resAbog = $abogado->select('abg_ci')->where('abg_usuario', $idUsuario)->first();
+        $idAbogado = $resAbog->abg_ci;
         
         if($request->hasFile('doc_url')){
+            $idCatDoc = $request->input('doc_categoriadoc');
             date_default_timezone_set("America/La_Paz");
             $originalName = $request->doc_url->getClientOriginalName();
             $filename = time().'_'.$request->doc_url->getClientOriginalName();
@@ -121,7 +123,7 @@ class DocumentoController extends Controller
         }
 
 
-        return redirect()->route('documento.create');
+        return redirect()->route('documento.documentosPorCategoria', ['id' => $idCatDoc]);
     }
 
     public function show($id)

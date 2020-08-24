@@ -75,13 +75,9 @@ class CategoriaDocumentoController extends Controller
         DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Registró una categoría documento.',$fecha,$hora]);
         //Insercion Bitacora
 
-        return redirect()->route('categoriadocumento.create');
+        return redirect()->route('categoriadocumento.index');
     }
 
-    public function show($id)
-    {
-        //
-    }
 
     public function edit($id)
     {
