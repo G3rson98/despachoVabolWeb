@@ -40,4 +40,7 @@
             </div>
         </form>
     </div>
+    <div style="display: flex; justify-content: flex-end">
+        <h4>Cantidad de visitas: {{ $visitas[0]->numero_visitas }}</h4>
+    </div>
 @endsection()
