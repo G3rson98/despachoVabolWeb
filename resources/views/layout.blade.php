@@ -124,12 +124,14 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
+              @if(auth()->user()->rol == 'Administrador' || auth()->user()->rol == 'Abogado')
                 <li class="nav-item">
                   <a href="{{ route('documento.create') }}" class="nav-link" id="NavDocu">
                     <i class="far fa-file nav-icon"></i>
                     <p>Documentos</p>
                   </a>
                 </li>
+              @endif
                 <li class="nav-item">
                   <a href="{{ route('categoriadocumento.index') }}" class="nav-link" id="NavCdoc">
                     <i class="far fa-folder-open nav-icon"></i>
@@ -167,6 +169,7 @@
                 </li>
               </ul>
             </li>
+            @if(auth()->user()->rol == 'Administrador')
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link active" id="NavEstadistica">
                 <i class="fas fa-chart-pie"></i>
@@ -184,6 +187,7 @@
                 </li>
               </ul>
             </li>
+            @endif
             <li class="nav-item">
               <a href="{{ route('bitacora') }}" class="nav-link" id="">
                 <button class="btn btn-primary btn-block"><i class="far fa-chart-bar nav-icon"></i> Bitácora</button>

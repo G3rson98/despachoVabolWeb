@@ -118,7 +118,6 @@
                             
                         </div>
                     </div>
-                    
                 @endforeach
             </div>
             <div class="card-footer">
