@@ -84,7 +84,7 @@
                 <div class="card-header">
                   <h3 class="card-title">Contáctanos</h3>
                 </div>
-             <form action="{{ url('/solicitudcontacto') }}" role="form" method="POST">
+             <form action="{{ url('/solicitudcontacto/store') }}" role="form" method="POST">
                 {{ csrf_field() }}
                 <div class="card-body">
                 {{-- FirstRow --}}
