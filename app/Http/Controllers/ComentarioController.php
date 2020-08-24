@@ -45,6 +45,13 @@ class ComentarioController extends Controller
         date_default_timezone_set("America/La_Paz");
         $comentario->com_hora = date("G:i:s");
         $comentario->save();
+
+        //Insercion Bitacora
+        $fecha = date('Y-m-d');
+        $hora = date("G:i:s");
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Registró un comentario.',$fecha,$hora]);
+        //Insercion Bitacora
+
         return redirect()->route('documento.show', ['id' => $request->input('com_doc')]);
     }
 
@@ -75,14 +82,27 @@ class ComentarioController extends Controller
         
         $comentario = Comentario::find($request->input('com_id'));
         $comentario->update($request->all());
+
+        //Insercion Bitacora
+        $fecha = date('Y-m-d');
+        $hora = date("G:i:s");
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Editó un comentario.',$fecha,$hora]);
+        //Insercion Bitacora
+
         return redirect()->route('documento.show', ['id' => $request->input('com_doc')]);
     }
 
     public function destroy($id)
     {
         $comentario = Comentario::find($id);
-        
         $comentario->delete();
+
+        //Insercion Bitacora
+        $fecha = date('Y-m-d');
+        $hora = date("G:i:s");
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Eliminó un comentario.',$fecha,$hora]);
+        //Insercion Bitacora
+
         return redirect()->route('documento.show', ['id' => $comentario->com_doc]);
     }
 

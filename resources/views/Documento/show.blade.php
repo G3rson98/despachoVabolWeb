@@ -51,7 +51,7 @@
                                             @elseif($extensionArchivo === 'webp' )
                                             <img src="{{asset('storage/'.$documento[0]->doc_url)}}" class="product-image" style="width:500px; height:500px;" >
                                             @else
-                                            <img src="{{asset('storage/upload/imagenFile.svg')}}" class="product-image" style="width:500px; height:500px;" >
+                                            c class="product-image" style="width:500px; height:500px;" >
                                             @endif
                                         </div>
                                 </div>
@@ -198,12 +198,16 @@
             </div>
                 
         </form>
-      </div>
-      <div class="modal-footer">
+    </div>
+    <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-      </div>
+    </div>
     </div>
   </div>
+</div>
+
+<div style="display: flex; justify-content: flex-end">
+        <h4>Cantidad de visitas: {{ $visitas[0]->numero_visitas }}</h4>
 </div>
 
 @endsection()

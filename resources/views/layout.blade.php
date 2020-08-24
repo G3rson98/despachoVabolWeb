@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
   <title>VABOL | L.T.D.A.</title>
 
   <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
@@ -124,7 +124,7 @@
             </li>
             
             <li class="nav-item has-treeview menu-open">
-              <a href="{{ route('documento.create') }}" class="nav-link active" id="NavDoc">
+              <a href="#" class="nav-link active" id="NavDoc">
                 <i class="nav-icon fas fa-file-alt"></i>
                 <p>
                   Documento
@@ -133,7 +133,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link" id="NavDocu">
+                  <a href="{{ route('documento.create') }}" class="nav-link" id="NavDocu">
                     <i class="far fa-file nav-icon"></i>
                     <p>Documentos</p>
                   </a>
@@ -171,6 +171,23 @@
                   <a href="{{ route('solicitudcontacto.index') }}" class="nav-link" id="NavSol">
                     <i class="far fa-address-card nav-icon"></i>
                     <p>Solicitudes de contacto</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview menu-open">
+              <a href="#" class="nav-link active" id="NavDoc">
+                <i class="fas fa-chart-pie"></i>
+                <p>
+                  Estadísticas
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('documento.estadistica') }}" class="nav-link" id="NavDocu">
+                    <i class="fas fa-chart-bar"></i>
+                    <p>Estadística documentos</p>
                   </a>
                 </li>
               </ul>
@@ -242,6 +259,7 @@
           <div class="content">
             <div class="container-fluid">
               @yield('content')
+              
               <!-- /.row -->
             </div><!-- /.container-fluid -->
           </div>
