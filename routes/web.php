@@ -24,6 +24,7 @@ Route::post('/tema/temaColor', 'TemaController@temaColor')->name('tema.temaColor
 /* RUTAS GERSON OLIVA*/
 Route::prefix('Abogado')->group( function (){
     Route::get('index', 'AbogadoController@index')->name('abogado.index');
+    Route::get('buscador', 'AbogadoController@buscador')->name('abogado.buscador');
     Route::get('create', 'AbogadoController@create')->name('abogado.create');
     Route::get('show/{id}','AbogadoController@show')->name('abogado.show');
     Route::post('store', 'AbogadoController@store')->name('abogado.store');

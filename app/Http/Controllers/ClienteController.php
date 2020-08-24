@@ -97,6 +97,7 @@ class ClienteController extends Controller
         $usuario->email=$request['email'];
         $usuario->password = Hash::make($request['password']);
         $usuario->rol = 'Cliente';
+        //$usuario->colora= '#asdasdasd';
         $usuario->save();
         $cliente= new Cliente();
         $cliente->cl_nit = $request['cl_nit'];        

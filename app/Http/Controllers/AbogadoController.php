@@ -256,6 +256,13 @@ class AbogadoController extends Controller
         return redirect()->route('abogado.index',compact('visitas','tema'));
     }
 
+    public function buscador(Request $request)
+    {   
+        $Abogados = Abogado::where('abg_ci','like', $request->texto.'%')->get();
+        $tema = $this->getTema();        
+        $visitas = $this->updateGetVisitas('abogado_index');
+        return view('Usuario.GestionarAbogado.index',compact('Abogados','tema','visitas'));
+    }
     public function getTema()
     {
         return  [
