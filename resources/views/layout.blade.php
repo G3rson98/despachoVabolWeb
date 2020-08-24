@@ -32,11 +32,8 @@
           <a class="nav-link" data-widget="pushmenu" href="#" id="menuIcon"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Contact</a>
-        </li>
+          <a href="{{ route('dashboard') }}" class="nav-link" id="Home" >Home</a>
+        </li>        
       </ul>
 
       <!-- SEARCH FORM -->
@@ -80,7 +77,7 @@
         <div class="user-panel ">
           <div class="info">
             @auth
-            <a href="#" class="d-block" id="NavUser">
+            <a href="{{ route('Usuario.show') }}" class="d-block" id="NavUser">
               <h>
                 {{auth()->user()->email}}
               </h>
@@ -105,26 +102,19 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link" id="NavAbogado">
+                  <a href="{{ route('abogado.index') }}" class="nav-link" id="NavAbogado">
                     <i class="far fa-user-circle nav-icon"></i>
                     <p>Abogado</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link" id="NavCliente">
+                  <a href="{{ route('cliente.index') }}" class="nav-link" id="NavCliente">
                     <i class="far fa-user-circle nav-icon"></i>
                     <p>Cliente</p>
                   </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-user-circle nav-icon"></i>
-                    <p>Usuario</p>
-                  </a>
-                </li>
+                </li>               
               </ul>
-            </li>
-            
+            </li>            
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link active" id="NavDoc">
                 <i class="nav-icon fas fa-file-alt"></i>
@@ -181,7 +171,7 @@
             </li>
             @if(auth()->user()->rol == 'Administrador')
             <li class="nav-item has-treeview menu-open">
-              <a href="#" class="nav-link active" id="NavDoc">
+              <a href="#" class="nav-link active" id="NavEstadistica">
                 <i class="fas fa-chart-pie"></i>
                 <p>
                   Estadísticas
@@ -190,7 +180,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ route('documento.estadistica') }}" class="nav-link" id="NavDocu">
+                  <a href="{{ route('documento.estadistica') }}" class="nav-link" id="NavEstDocu">
                     <i class="fas fa-chart-bar"></i>
                     <p>Estadística documentos</p>
                   </a>
@@ -340,6 +330,7 @@
         document.getElementById("NavUsuarios").style.background = colorBG;
         document.getElementById("NavDoc").style.background = colorBG;
         document.getElementById("NavPub").style.background = colorBG;
+        document.getElementById("NavEstadistica").style.background = colorBG;
         
         document.getElementById("NavUsuarios").style.color = colorText;
         document.getElementById("NavAbogado").style.color = colorText;
@@ -355,6 +346,9 @@
         document.getElementById("NavLogo").style.color = colorText;
         document.getElementById("menuIcon").style.color = colorText;
         document.getElementById("ColorConfig").style.color = colorText;
+        document.getElementById("NavEstDocu").style.color = colorText;
+        document.getElementById("NavEstadistica").style.color = colorText;
+        document.getElementById("Home").style.color = colorText;
       }
     </script>
   </div>
