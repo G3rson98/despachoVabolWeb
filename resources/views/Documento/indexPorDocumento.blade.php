@@ -4,7 +4,7 @@
 <div class="container">
     <div class="card card-primary card-outline">
         <div class="card-header">
-              <h3 class="card-title">Documentos de la categoría: {{$categoria->catdoc_nombre}} </h3>
+                <h3 class="card-title">Documentos de la categoría: {{$categoria->catdoc_nombre}} </h3>
         </div>
         <div class="card-footer bg-white">
                 <div class="row">
@@ -13,7 +13,6 @@
                         <div class="col-md-3">
                             <div class="panel panel-default">
                                 <span class="mailbox-attachment-icon"><i class="far fa-file-alt"></i></span>
-
                                 <div class="mailbox-attachment-info">
                                 <div  class="mailbox-attachment-name"><i class="fas fa-paperclip"></i> {{$docCat->doc_titulo}}</div>
                                     <span class="mailbox-attachment-size clearfix mt-1">

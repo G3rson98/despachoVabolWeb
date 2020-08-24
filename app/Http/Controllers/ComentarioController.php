@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Comentario;
+use Illuminate\Support\Facades\DB;
 
 
 class ComentarioController extends Controller
