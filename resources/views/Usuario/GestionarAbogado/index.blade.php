@@ -1,20 +1,30 @@
 @extends('layout')
 
 @section('content')
+<!-- <br>
+<div class="input-group flex-nowrap">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="addon-wrapping">Buscar</span>
+  </div>
+  <input type="text" class="form-control" id="texto" placeholder="Numero de CI">
+</div>
+<div id="resultado">
+
+</div> -->
 <div class="card-body">
     <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
-        <div class="row">
-            <div class="col-sm-12 col-md-6"></div>
+        <div class="row">            
             <div class="col-sm-12 col-md-6"></div>
         </div>
         <div class="row" style="margin-top: 5%; margin-bottom: 15px">
             <div class="col-sm-12">
                 <a href="{{route('abogado.create')}}" role="button" class="btn btn-success">Registrar Abogado</a>
             </div>
+           
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <table id="example1" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
+                <table class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
                     <thead>
                         <tr role="row">
                             <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending">Ci</th>
@@ -43,13 +53,13 @@
                             <td class="" tabindex="0">{{$Abogado->abg_genero}}</td>
                             <td class="" tabindex="0">{{$Abogado->abg_nrocolabogados}}</td>
                             <td class="" tabindex="0">{{$Abogado->abg_nrominjusticia}}</td>
-                            <td class="" tabindex="0">{{$Abogado->abg_numregcorte}}</td>                            
+                            <td class="" tabindex="0">{{$Abogado->abg_numregcorte}}</td>
                             <td class="" tabindex="0">
                                 <div class="btn-group btn-group-sm">
                                     <a href="{{url('Abogado/edit',$Abogado->abg_ci)}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
                                     <a href="{{url('Abogado/destroy',$Abogado->abg_ci)}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                 </div>
-                            </td>                            
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -71,38 +81,29 @@
                 </table>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-5">
-                <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
-            </div>
-            <div class="col-sm-12 col-md-7">
-                <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                    <ul class="pagination">
-                        <li class="paginate_button page-item previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                        <li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                        <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                        <li class="paginate_button page-item next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+
+    </div>
+</div>
+<div class="card-footer text-muted">
+    <div style="display: flex; justify-content: flex-end">
+        <h4>Cantidad de visitas: {{ $visitas[0]->numero_visitas }}</h4>
     </div>
 </div>
 
-<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
 <script>
-    $(function() {
-        $("#example1").DataTable({
-            "responsive": true,
-            "autoWidth": false,
-        });
-    });
+    window.addEventListener("load",function(){
+        document.getElementById("texto").addEventListener("keyup",function(){
+            //console.log(document.getElementById("texto").value)
+            fetch(`/Abogado/buscador?texto=${document.getElementById("texto").value}`,{
+                method:'get'
+            })
+            .then(response => response.text() )
+            .then(html => {
+                document.getElementById("resultado").innerHTML = html
+            })            
+        })
+    })
 </script>
+
 @endsection

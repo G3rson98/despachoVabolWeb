@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Abogado;
 use App\Usuario;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class AbogadoController extends Controller
 {
@@ -20,8 +21,11 @@ class AbogadoController extends Controller
      */
     public function index()
     {
+        
+        $tema = $this->getTema();        
+        $visitas = $this->updateGetVisitas('abogado_index');
         $abogados= Abogado::all();
-        return view('Usuario.GestionarAbogado.index',['Abogados'=>$abogados]);
+        return view('Usuario.GestionarAbogado.index',['Abogados'=>$abogados],compact('visitas','tema'));
     }
 
     /**
@@ -31,7 +35,10 @@ class AbogadoController extends Controller
      */
     public function create()
     {
-        return view('Usuario.GestionarAbogado.create');
+        
+        $tema = $this->getTema();        
+        $visitas = $this->updateGetVisitas('abogado_create');
+        return view('Usuario.GestionarAbogado.create',compact('visitas','tema'));
     }
 
     /**
@@ -98,8 +105,7 @@ class AbogadoController extends Controller
             "password.min" => 'La contraseña debe contener al menos 8 caracteres',
             "password_Confirm.same" => 'Las contraseñas no coinciden',
         ];
-        $this->validate($request,$campos,$Mensaje);
-                                
+        $this->validate($request,$campos,$Mensaje);                                
         $usuario= new Usuario();
         $usuario->email=$request['email'];
         $usuario->password = Hash::make($request['password']);
@@ -120,7 +126,12 @@ class AbogadoController extends Controller
         $Abogado->abg_numregcorte = $request['abg_numregcorte'];
         $Abogado->abg_usuario = $usuario['id'];
         $Abogado->save();
-        return redirect()->route('abogado.index');
+        
+        $this->bitacora('Registro un nuevo abogado con ci:'.$request['abg_ci'].' y nombre:'.$request['abg_nombre']);
+        $tema = $this->getTema();        
+        $visitas =$this->updateGetVisitas('abogado_index');
+
+        return redirect()->route('abogado.index',compact('visitas','tema'));
     }
 
     /**
@@ -142,10 +153,10 @@ class AbogadoController extends Controller
      */
     public function edit($id)
     {   $Abogado= new Abogado();
-        $Abogado=Abogado::findOrFail($id);
-        return view('Usuario.GestionarAbogado.edit',['Abogado'=>$Abogado]);
-        //echo(substr($Abogado->abg_fnacimiento,5,2));
-        //echo($Abogado);
+        $Abogado=Abogado::findOrFail($id);        
+        $tema = $this->getTema();       
+        $visitas = $this->updateGetVisitas('abogado_edit');
+        return view('Usuario.GestionarAbogado.edit',['Abogado'=>$Abogado],compact('visitas','tema'));
     }
 
     /**
@@ -218,8 +229,12 @@ class AbogadoController extends Controller
         $Abogado->abg_nrocolabogados = $request['abg_nrocolabogados'];
         $Abogado->abg_nrominjusticia = $request['abg_nrominjusticia'];
         $Abogado->abg_numregcorte = $request['abg_numregcorte'];
-        $Abogado->update();
-        return redirect()->route('abogado.index');
+        $Abogado->update();    
+
+         $this->bitacora('Modifico el abogado con ci:'.$Abogado->abg_ci.' y nombre:'.$Abogado->abg_nombre);
+         $tema = $this->getTema();        
+         $visitas = $this->updateGetVisitas('abogado_index');
+        return redirect()->route('abogado.index',compact('visitas','tema'));
     }
 
     /**
@@ -234,7 +249,40 @@ class AbogadoController extends Controller
         $Abogado=Abogado::findOrFail($id);
         //$Abogado->delete();
         $id= $Abogado['abg_usuario'];
-        Usuario::destroy($id);        
-        return redirect()->route('abogado.index');
+        Usuario::destroy($id);    
+        $this->bitacora('Elimino el abogado con ci:'.$Abogado->abg_ci.' y nombre:'.$Abogado->abg_nombre);        
+        $tema = $this->getTema();        
+        $visitas = $this->updateGetVisitas('abogado_index');
+        return redirect()->route('abogado.index',compact('visitas','tema'));
+    }
+
+    public function buscador(Request $request)
+    {   
+        $Abogados = Abogado::where('abg_ci','like', $request->texto.'%')->get();
+        $tema = $this->getTema();        
+        $visitas = $this->updateGetVisitas('abogado_index');
+        return view('Usuario.GestionarAbogado.index',compact('Abogados','tema','visitas'));
+    }
+    public function getTema()
+    {
+        return  [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+    }
+
+    public function updateGetVisitas($nombre_pagina)
+    {
+        DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', [$nombre_pagina]);
+        $visitas = DB::select('select * from visitas where nombre_pagina = ?', [$nombre_pagina]);
+        return $visitas;
+    }
+    public function bitacora($accion)
+    {
+        $fecha = date('Y-m-d');
+        date_default_timezone_set("America/La_Paz");
+        $hora = date("G:i:s");        
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email,$accion,$fecha,$hora]);
     }
 }

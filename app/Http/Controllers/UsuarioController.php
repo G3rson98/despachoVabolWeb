@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
@@ -47,7 +48,8 @@ class UsuarioController extends Controller
      */
     public function show()
     {
-        return view('Usuario.GestionarUsuario.show');
+        $tema = $this->getTema();
+        return view('Usuario.GestionarUsuario.show', compact('tema'));
     }
 
     /**
@@ -70,29 +72,28 @@ class UsuarioController extends Controller
      */
     public function update(Request $request)
     {
-        $campos=[           
-           // 'password' => 'nullable|min:8',
-          //  'password_Confirm' => 'nullable|same:password',
-            'picture'=> 'mimes:jpeg'
+        $campos = [
+            'password' => 'nullable|min:8',
+            'password_Confirm' => 'nullable|same:password',
+            'picture' => 'mimes:jpeg,bmp,png'
         ];
-        $Mensaje = [                      
-        //    "password.min" => 'La contraseña debe contener al menos 8 caracteres',
-        //    "password_Confirm.same" => 'Las contraseñas no coinciden',
+        $Mensaje = [
+            "password.min" => 'La contraseña debe contener al menos 8 caracteres',
+            "password_Confirm.same" => 'Las contraseñas no coinciden',
             "picture.mimes" => 'La foto de perfil debe ser formatos png o jpg',
         ];
+        $this->validate($request, $campos, $Mensaje);
 
         $Usuario = new Usuario();
-        $Usuario = Usuario::where('email',auth()->user()->email);
-       // $Usuario->password = Hash::make($request->password);
-
-        $this->validate($request,$campos,$Mensaje);
-        if ($request->hasFile('picture')) {
-            $Usuario->picture = $request->file('picture')->store('userPicture','public');
+        $Usuario = Usuario::where('email', auth()->user()->email)->first();
+        if ($request->hasFile('picture')) {           
+            $Usuario->picture = $request->file('picture')->store('upload', 'public');
         }
-        return $Usuario;
-        /*$Usuario->update();
-        return redirect()->route('dashboard');*/
-
+        if ($request->password != null) {
+            $Usuario->password = Hash::make($request->password);            
+        }
+        $Usuario->update();
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -103,6 +104,20 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        
+    }
+    public function getTema()
+    {
+        return  [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+        ];
+    }
+    public function bitacora($accion)
+    {
+        $fecha = date('Y-m-d');
+        date_default_timezone_set("America/La_Paz");
+        $hora = date("G:i:s");
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, $accion, $fecha, $hora]);
     }
 }

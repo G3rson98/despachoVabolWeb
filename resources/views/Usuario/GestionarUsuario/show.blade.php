@@ -22,7 +22,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" method="POST" action="{{url('Usuario/update')}}">
+                <form role="form" method="POST" action="{{url('Usuario/update')}}" enctype = "multipart/form-data" files = "true">
                     @csrf
                     <div class="card-body">
                         <div class="form-row">
@@ -57,7 +57,5 @@
         </div>
     </div>
 </div>
-
-
 
 @endsection
