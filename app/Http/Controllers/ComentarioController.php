@@ -52,7 +52,7 @@ class ComentarioController extends Controller
         $hora = date("G:i:s");
         DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Registró un comentario.',$fecha,$hora]);
         //Insercion Bitacora
-
+        $request->session()->flash('alert-success', '¡Comentario realizado con éxito!');
         return redirect()->route('documento.show', ['id' => $request->input('com_doc')]);
     }
 
@@ -89,7 +89,7 @@ class ComentarioController extends Controller
         $hora = date("G:i:s");
         DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Editó un comentario.',$fecha,$hora]);
         //Insercion Bitacora
-
+        $request->session()->flash('alert-success', '¡Comentario modificado con éxito!');
         return redirect()->route('documento.show', ['id' => $request->input('com_doc')]);
     }
 

@@ -3,6 +3,9 @@
 @section('content')
 <br>
 <div class="container">
+
+<div class="flash-message">
+
     {{-- errores --}}
     @if (count($errors)>0)
         <div class="alert alert-default-danger" role="alert">
@@ -14,6 +17,7 @@
         </div>
     @endif
     {{-- errores --}}
+
     <div class="card card-primary card-outline">
         <div class="card-header">
             <h3 class="card-title">Documento</h3>

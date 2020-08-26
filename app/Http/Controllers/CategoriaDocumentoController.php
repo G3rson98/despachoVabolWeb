@@ -74,7 +74,7 @@ class CategoriaDocumentoController extends Controller
 
         DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Registró una categoría documento.',$fecha,$hora]);
         //Insercion Bitacora
-
+        $request->session()->flash('alert-success', 'Categoría documento registrada con éxito!');
         return redirect()->route('categoriadocumento.index');
     }
 
@@ -122,7 +122,7 @@ class CategoriaDocumentoController extends Controller
         $hora = date("G:i:s");
         DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Editó una categoría documento.',$fecha,$hora]);
         //Insercion Bitacora
-
+        $request->session()->flash('alert-success', 'Categoría documento modificada con éxito!');
         return redirect()->route('categoriadocumento.index');
     }
 
@@ -137,7 +137,6 @@ class CategoriaDocumentoController extends Controller
         $hora = date("G:i:s");
         DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Eliminó una categoría documento.',$fecha,$hora]);
         //Insercion Bitacora
-
         return redirect()->route('categoriadocumento.index');
     }
 }
