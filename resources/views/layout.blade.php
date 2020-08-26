@@ -62,7 +62,7 @@
     <aside class="main-sidebar elevation-4" id="mainSideBar">
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link" id="NavLogo">
-        <img src="/dist/img/logoV.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{asset('dist/img/logoV.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">VABOL L.T.D.A. </span>
       </a>
 
@@ -71,7 +71,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
           <div class="image">            
-            <img src="/dist/img/user7-128x128.jpg" class="img-circle elevation-2" alt="User Image">           
+            <img src="{{asset('dist/img/user7-128x128.jpg')}}" class="img-circle elevation-2" alt="User Image">           
           </div>
         </div>
         <div class="user-panel ">
