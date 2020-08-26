@@ -122,7 +122,6 @@ class DocumentoController extends Controller
             //Insercion Bitacora
         }
 
-
         return redirect()->route('documento.documentosPorCategoria', ['id' => $idCatDoc]);
     }
 
