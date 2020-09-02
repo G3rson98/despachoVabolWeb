@@ -8,6 +8,10 @@
                 <div class="card-header">
                     <h1>Bienvenido {{auth()->user()->email}}</h1>
                     <h1>{{session('nombre')}}</h1>
+
+                    <h2>{{auth()->user()->colora}}</h2>
+                    <h2>{{auth()->user()->colorb}}</h2>
+                    <h2>{{auth()->user()->colorc}}</h2>
                 </div>
                 <div class="card-body">
                 </div>

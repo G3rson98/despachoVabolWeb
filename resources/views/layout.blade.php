@@ -25,7 +25,7 @@
 
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light" id="innerNavbar">
+    <nav class="main-header navbar navbar-expand" id="innerNavbar">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -35,18 +35,6 @@
           <a href="{{ route('dashboard') }}" class="nav-link" id="Home" >Home</a>
         </li>        
       </ul>
-
-      <!-- SEARCH FORM -->
-      <form class="form-inline ml-3">
-        <div class="input-group input-group-sm">
-          <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-navbar" type="submit">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
@@ -78,9 +66,9 @@
           <div class="info">
             @auth
             <a href="{{ route('Usuario.show') }}" class="d-block" id="NavUser">
-              <h>
+              <h6>
                 {{auth()->user()->email}}
-              </h>
+              </h6>
             </a>
             @endauth
           </div>
@@ -243,9 +231,6 @@
                   <input type="hidden" class="form-control" name="colorc" value="#F8F9FA">
                   <button type="submit" class="btn bg-danger elevation-2" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></button>
                 </form>
-                {{-- <div class="bg-gray elevation-2" onclick="Theme('#F8F9FA','#212529','#343A40');" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-                <div class="bg-light elevation-2" onclick="Theme('#2176ff','#ffffff','#eff1f3');" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div>
-                <div class="bg-danger elevation-2" onclick="Theme('#F8F9FA','#bfc0c0','#D80032');" style="width: 40px; height: 20px; border-radius: 25px; margin-right: 10px; margin-bottom: 10px; opacity: 0.8; cursor: pointer;"></div> --}}
               </div>
             </div>
           </aside>
