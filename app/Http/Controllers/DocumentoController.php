@@ -29,11 +29,11 @@ class DocumentoController extends Controller
         if ($rol == "Cliente") {
             $respCliente = $cliente->select('cl_nit')->where('cl_usuario', $idUsuario)->first();
             $idCliente = $respCliente->cl_nit;
-            $documentosPorCategoria = $documento->select('*')->where('doc_categoriadoc', $id)->where('doc_cliente', $idCliente)->get();
+            $documentosPorCategoria = $documento->select('*')->where('doc_categoriadoc', $id)->where('doc_cliente', $idCliente)->orderBy('doc_fechasubida', 'DESC')->get();
         }else{
             $resAbog = $abogado->select('abg_ci')->where('abg_usuario', $idUsuario)->first();
             $idAbogado = $resAbog->abg_ci;
-            $documentosPorCategoria = $documento->select('*')->where('doc_categoriadoc', $id)->where('doc_abogado', $idAbogado)->get();
+            $documentosPorCategoria = $documento->select('*')->where('doc_categoriadoc', $id)->where('doc_abogado', $idAbogado)->orderBy('doc_fechasubida', 'DESC')->get();
         }
 
         $categoria = CategoriaDocumento::find($id);
@@ -128,7 +128,7 @@ class DocumentoController extends Controller
     public function show($id)
     {
         $documento = DB::select('select * from documento, cliente, abogado  where doc_cliente = cl_nit and abg_ci = doc_abogado and doc_id = ?', [$id]);
-        $comentariosDoc = DB::select('select * from comentario, usuario where com_usuario = id and com_doc = ?', [$id]);
+        $comentariosDoc = DB::select('select * from comentario, usuario where com_usuario = id and com_doc = ? order by com_fecha, com_hora', [$id]);
         $imagenDocumento = $documento[0]->doc_titulo;
         $extensionArchivo = pathinfo($imagenDocumento, PATHINFO_EXTENSION);
 

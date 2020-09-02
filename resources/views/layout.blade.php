@@ -128,7 +128,7 @@
                 <li class="nav-item">
                   <a href="{{ route('documento.create') }}" class="nav-link" id="NavDocu">
                     <i class="far fa-file nav-icon"></i>
-                    <p>Documentos</p>
+                    <p>Subir Documentos</p>
                   </a>
                 </li>
               @endif
