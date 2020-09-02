@@ -110,6 +110,9 @@ class AbogadoController extends Controller
         $usuario->email=$request['email'];
         $usuario->password = Hash::make($request['password']);
         $usuario->rol = $request['rol'];
+        $usuario->colora='#343A40';
+        $usuario->colorb='#212529';
+        $usuario->colorc='#F8F9FA';
         $usuario->save();       
         $Abogado= new Abogado();
         $Abogado->abg_ci = $request['abg_ci'];             
@@ -261,7 +264,7 @@ class AbogadoController extends Controller
         $Abogados = Abogado::where('abg_ci','like', $request->texto.'%')->get();
         $tema = $this->getTema();        
         $visitas = $this->updateGetVisitas('abogado_index');
-        return view('Usuario.GestionarAbogado.index',compact('Abogados','tema','visitas'));
+        return view('Usuario.GestionarAbogado.tableAbogado',compact('Abogados','tema','visitas'));
     }
     public function getTema()
     {
