@@ -33,6 +33,7 @@ class LoginController extends Controller
             'password' => $usu_contrasena,
             'email' => $usu_email
         ))) {
+            $this->bitacora('El usuario: '.auth()->user()->email .' inicio sesion en el sistema.');
             $this->getDatos($usu_email);            
             return redirect()->route('dashboard');
             //session()->put('nombre','Gerson');
@@ -46,6 +47,7 @@ class LoginController extends Controller
 
     public function logout()
     {
+        $this->bitacora('El usuario: '.auth()->user()->email .' cerro sesion del sistema.');
         Auth::logout();
         session()->forget('Usuario');
         return redirect('/');
@@ -63,5 +65,12 @@ class LoginController extends Controller
 
         $UsuarioLogueado = Usuario::where('email', $email)->join($tabla, 'usuario.id', '=', $foreignKey)->first();
         session()->put('Usuario',$UsuarioLogueado);        
+    }
+    public function bitacora($accion)
+    {
+        $fecha = date('Y-m-d');
+        date_default_timezone_set("America/La_Paz");
+        $hora = date("G:i:s");        
+        DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email,$accion,$fecha,$hora]);
     }
 }
