@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TemaController extends Controller
@@ -16,6 +17,7 @@ class TemaController extends Controller
         $usuario->colorb = $request['colorb'];
         $usuario->colorc = $request['colorc'];
         $usuario->update();
+        //Auth::user()->fresh();
         return redirect()->route('dashboard');
         // return response()->json($request);
     }

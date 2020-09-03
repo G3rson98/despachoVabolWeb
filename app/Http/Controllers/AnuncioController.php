@@ -22,6 +22,7 @@ class AnuncioController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
         //TEMAS
         
@@ -48,6 +49,7 @@ class AnuncioController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
 
         // $abogados = Abogado::all();
@@ -98,6 +100,9 @@ class AnuncioController extends Controller
         DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Registró un anuncio.',$fecha,$hora]);
         //Insercion Bitacora
 
+        //Mensaje OK
+        $request->session()->flash('alert-success', 'Anuncio registrado con éxito!');
+
         return redirect('anuncio');
     }
 
@@ -130,6 +135,7 @@ class AnuncioController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
         
         return view('Publicaciones.GestionarAnuncio.editAnuncio', compact('anuncio'/*, 'abogados'*/, 'categorias', 'visitas','tema'));
@@ -164,7 +170,6 @@ class AnuncioController extends Controller
         $campos=[
             'anu_titulo' => 'required|string|max:125',
             'anu_contenido' => 'required|string|max:500',
-            'anu_abogado' => 'required|numeric',
             'anu_categoria' => 'required|numeric',
         ];
         $Mensaje = [
@@ -187,6 +192,9 @@ class AnuncioController extends Controller
 
         DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Modificó un anuncio.',$fecha,$hora]);
         //Insercion Bitacora
+
+        //Mensaje OK
+        $request->session()->flash('alert-success', 'Anuncio modificado con éxito!');
 
         return redirect('anuncio');
         // return response()->json($datosAnuncio);

@@ -42,6 +42,7 @@ class DocumentoController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
 
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['documento_index']);
@@ -60,6 +61,7 @@ class DocumentoController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
 
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['documento_create']);
@@ -136,6 +138,7 @@ class DocumentoController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
 
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['documento_show']);
@@ -211,11 +214,14 @@ class DocumentoController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
+
+        //Estadiscas Documentos
         $junio      = DB::select("select count(*) from documento where doc_fechasubida >= '2020-06-01' and doc_fechasubida<= '2020-06-30'");
         $julio      = DB::select("select count(*) from documento where doc_fechasubida >= '2020-07-01' and doc_fechasubida<= '2020-07-31'");
         $agosto     = DB::select("select count(*) from documento where doc_fechasubida >= '2020-08-01' and doc_fechasubida<= '2020-08-31'");
-        $septiembre = DB::select("select count(*) from documento where doc_fechasubida >= '2020-09-01' and doc_fechasubida<= '2020-08-30'");
+        $septiembre = DB::select("select count(*) from documento where doc_fechasubida >= '2020-09-01' and doc_fechasubida<= '2020-09-30'");
 
         $listaDocumentos = [$junio[0]->count, $julio[0]->count, $agosto[0]->count, $septiembre[0]->count];
 

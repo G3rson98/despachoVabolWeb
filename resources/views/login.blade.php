@@ -36,7 +36,7 @@
                 </div>
                 <div class="card-body">
                     <form role="form" method="POST" action="{{route('login')}}">
-                        {{csrf_field() }}
+                        {{csrf_field()}}                        
                         <div class="form-group {{ $errors->has('email')? 'has-error': ''}}">
                             <label for="email">Email</label>
                             <input class="form-control" type="email" name="email" placeholder="Ingresa tu email" value="{{old('email')}}">
