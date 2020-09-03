@@ -128,7 +128,7 @@
               <!-- /.card -->
         </div>
         {{-- forContacto --}}
-            <h1>Anuncios:</h1>
+            <h1 style = "color: white">Anuncios:</h1>
         <div class="wrapper">
             @foreach ($anuncios as $anuncio)
             
