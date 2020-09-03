@@ -108,7 +108,7 @@
                             <span class="direct-chat-name float-left">{{$comdoc->email}}</span>
                             <span class="direct-chat-timestamp float-right">{{$comdoc->com_fecha}} || {{$comdoc->com_hora}}</span>
                         </div>
-                        <img class="direct-chat-img" src="/dist/img/user1-128x128.jpg" alt="message user image">
+                        <img class="direct-chat-img" src="{{asset('/dist/img/user.png')}}" alt="message user image">
                         <div class="direct-chat-text">
                             {{$comdoc->com_contenido}}
                                 @if(auth()->user()->id == $comdoc->com_usuario)
