@@ -79,7 +79,7 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
               with font-awesome or any other icon font library -->
-            
+            @if(auth()->user()->rol == 'Administrador' || auth()->user()->rol == 'Abogado')
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link active"  id="NavUsuarios">
                 <i class="nav-icon fas fa-user-alt"></i>
@@ -102,7 +102,8 @@
                   </a>
                 </li>               
               </ul>
-            </li>            
+            </li>
+            @endif            
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link active" id="NavDoc">
                 <i class="nav-icon fas fa-file-alt"></i>
@@ -116,7 +117,7 @@
                 <li class="nav-item">
                   <a href="{{ route('documento.create') }}" class="nav-link" id="NavDocu">
                     <i class="far fa-file nav-icon"></i>
-                    <p>Documentos</p>
+                    <p>Subir Documentos</p>
                   </a>
                 </li>
               @endif
@@ -128,6 +129,7 @@
                 </li>
               </ul>
             </li>
+            @if(auth()->user()->rol == 'Administrador' || auth()->user()->rol == 'Abogado')
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link active" id="NavPub">
                 <i class="nav-icon fas fa-info"></i>
@@ -157,6 +159,7 @@
                 </li>
               </ul>
             </li>
+            @endif
             @if(auth()->user()->rol == 'Administrador')
             <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link active" id="NavEstadistica">
@@ -173,15 +176,22 @@
                     <p>Estadística documentos</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="{{ route('solcontacto.estadistica') }}" class="nav-link" id="NavEstSol">
+                    <i class="fas fa-chart-bar"></i>
+                    <p>Estadísticas solicitudes</p>
+                  </a>
+                </li>
               </ul>
             </li>
             @endif
+            @if(auth()->user()->rol == 'Administrador')
             <li class="nav-item">
               <a href="{{ route('bitacora') }}" class="nav-link" id="">
                 <button class="btn btn-primary btn-block"><i class="far fa-chart-bar nav-icon"></i> Bitácora</button>
-                
               </a>
             </li>
+            @endif
             <li class="nav-item">
               <form action="{{ route('logout')}}" method="POST">
                 {{csrf_field()}}
@@ -302,41 +312,56 @@
         let colora = @json($tema['colora']);
         let colorb = @json($tema['colorb']);
         let colorc = @json($tema['colorc']);
-        Theme(colorc,colorb,colora);
-        // Theme('#F8F9FA','#212529','#343A40');
+        let rol = @json($tema['rol']);
+        Theme(colorc,colorb,colora,rol);
+        //Theme('#F8F9FA','#212529','#343A40');
       }
 
       //CAM
-      function Theme(colorText,colorBG,colorNavbar){
+      function Theme(colorText,colorBG,colorNavbar,rol){
 
         document.getElementById("mainSideBar").style.background = colorNavbar;
         document.getElementById("innerNavbar").style.background = colorBG;
 
-        document.getElementById("NavUsuarios").style.background = colorBG;
+
         document.getElementById("NavDoc").style.background = colorBG;
-        document.getElementById("NavPub").style.background = colorBG;
-        document.getElementById("NavEstadistica").style.background = colorBG;
-        
-        document.getElementById("NavUsuarios").style.color = colorText;
-        document.getElementById("NavAbogado").style.color = colorText;
-        document.getElementById("NavCliente").style.color = colorText;
-        document.getElementById("NavDoc").style.color = colorText;
-        document.getElementById("NavDocu").style.color = colorText;
-        document.getElementById("NavCdoc").style.color = colorText;
-        document.getElementById("NavPub").style.color = colorText;
-        document.getElementById("NavCanu").style.color = colorText;
-        document.getElementById("NavAnu").style.color = colorText;
-        document.getElementById("NavSol").style.color = colorText;
+
+
         document.getElementById("NavUser").style.color = colorText;
         document.getElementById("NavLogo").style.color = colorText;
         document.getElementById("menuIcon").style.color = colorText;
         document.getElementById("ColorConfig").style.color = colorText;
-        document.getElementById("NavEstDocu").style.color = colorText;
-        document.getElementById("NavEstadistica").style.color = colorText;
+        document.getElementById("NavDoc").style.color = colorText;
+        document.getElementById("NavCdoc").style.color = colorText;
+
         document.getElementById("Home").style.color = colorText;
+
+        if (rol === 'Administrador' || rol === 'Abogado'){
+          if (rol === 'Administrador'){
+            document.getElementById("NavEstDocu").style.color = colorText;//admin
+            document.getElementById("NavEstadistica").style.color = colorText;//admin
+            document.getElementById("NavEstadistica").style.background = colorBG; //admin
+            document.getElementById("NavEstSol").style.color = colorText;//admin
+          } 
+
+          document.getElementById("NavUsuarios").style.background = colorBG; //admin abg
+          document.getElementById("NavPub").style.background = colorBG; //admin abg
+          
+          document.getElementById("NavUsuarios").style.color = colorText;//admin abg
+          document.getElementById("NavAbogado").style.color = colorText;//admin abg
+          document.getElementById("NavCliente").style.color = colorText;//admin abg
+
+          document.getElementById("NavPub").style.color = colorText;//admin abg
+          document.getElementById("NavCanu").style.color = colorText;//admin abg
+          document.getElementById("NavAnu").style.color = colorText;//admin abg
+          document.getElementById("NavSol").style.color = colorText;//admin abg
+          document.getElementById("NavDocu").style.color = colorText;//admin abg
+
+        }
+        
       }
     </script>
-  </div>
+    </div>
   </div>
 </body>
 
