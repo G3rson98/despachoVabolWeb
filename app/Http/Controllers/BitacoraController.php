@@ -18,6 +18,7 @@ class BitacoraController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
 
         return view('bitacora', compact('visitas','datos','tema'));

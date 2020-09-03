@@ -23,6 +23,8 @@ Route::post('/tema/temaDark', 'TemaController@temaDark')->name('tema.temaDark');
 Route::post('/tema/temaLight', 'TemaController@temaLight')->name('tema.temaLight');
 Route::post('/tema/temaColor', 'TemaController@temaColor')->name('tema.temaColor');
 
+Route::get('/solcontacto/estadistica', 'SolicitudContactoController@estadistica')->name('solcontacto.estadistica');
+
 /* RUTAS GERSON OLIVA*/
 Route::prefix('Abogado')->group( function (){
     Route::get('index', 'AbogadoController@index')->name('abogado.index');
