@@ -58,9 +58,9 @@
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
-          <div class="image">            
+          <!-- <div class="image">            
             <img src="{{asset('dist/img/user7-128x128.jpg')}}" class="img-circle elevation-2" alt="User Image">           
-          </div>
+          </div> -->
         </div>
         <div class="user-panel ">
           <div class="info">

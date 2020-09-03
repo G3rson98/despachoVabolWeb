@@ -90,9 +90,10 @@ class UsuarioController extends Controller
             $Usuario->picture = $request->file('picture')->store('upload', 'public');
         }
         if ($request->password != null) {
-            $Usuario->password = Hash::make($request->password);            
+            $Usuario->password = Hash::make($request->password);    
+            $Usuario->update();        
         }
-        $Usuario->update();
+        
         return redirect()->route('dashboard');
     }
 
@@ -111,6 +112,7 @@ class UsuarioController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
     }
     public function bitacora($accion)
