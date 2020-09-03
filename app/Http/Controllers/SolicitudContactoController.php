@@ -23,6 +23,7 @@ class SolicitudContactoController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
 
         return view('Publicaciones.GestionarSolicitudContacto.indexSolicitudContacto',$datos, compact('visitas','tema'));
@@ -56,5 +57,24 @@ class SolicitudContactoController extends Controller
         //Insercion Bitacora
 
         return redirect('solicitudcontacto');
+    }
+
+    public function estadistica(){
+        $tema = [
+            "colora" => auth()->user()->colora,
+            "colorb" => auth()->user()->colorb,
+            "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
+        ];
+
+        //Estadiscas de solicitudes de contacto
+        $junio      = DB::select("select count(*) from solicitudcontacto where sol_fecha >= '2020-06-01' and sol_fecha<= '2020-06-30'");
+        $julio      = DB::select("select count(*) from solicitudcontacto where sol_fecha >= '2020-07-01' and sol_fecha<= '2020-07-31'");
+        $agosto     = DB::select("select count(*) from solicitudcontacto where sol_fecha >= '2020-08-01' and sol_fecha<= '2020-08-31'");
+        $septiembre = DB::select("select count(*) from solicitudcontacto where sol_fecha >= '2020-09-01' and sol_fecha<= '2020-09-30'");
+
+        $listaSolicitudes = [$junio[0]->count, $julio[0]->count, $agosto[0]->count, $septiembre[0]->count];
+
+        return view('Publicaciones.GestionarSolicitudContacto.estadisticas', compact('tema','listaSolicitudes'));
     }
 }

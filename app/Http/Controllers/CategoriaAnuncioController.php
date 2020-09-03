@@ -22,6 +22,7 @@ class CategoriaAnuncioController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
 
         return view('Publicaciones.GestionarCategoriaAnuncio.indexCategoriaAnuncio',$datos, compact('visitas','tema'));
@@ -35,6 +36,7 @@ class CategoriaAnuncioController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
 
         return view('Publicaciones.GestionarCategoriaAnuncio.createCategoriaAnuncio', compact('visitas','tema'));
@@ -68,6 +70,9 @@ class CategoriaAnuncioController extends Controller
         DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Registró una categoría de anuncio.',$fecha,$hora]);
         //Insercion Bitacora
 
+        //Mensaje OK
+        $request->session()->flash('alert-success', 'Categoria anuncio registrada con éxito!');        
+
         return redirect('categoriaanuncio');
     }
 
@@ -94,6 +99,7 @@ class CategoriaAnuncioController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
         
         $categoria= CategoriaAnuncio::findOrFail($id);
@@ -126,6 +132,9 @@ class CategoriaAnuncioController extends Controller
 
         DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email, 'Modificó una categoría de anuncio.',$fecha,$hora]);
         //Insercion Bitacora
+
+        //Mensaje OK
+        $request->session()->flash('alert-success', 'Categoria anuncio modificada con éxito!'); 
 
         return redirect('categoriaanuncio');
     }
