@@ -293,12 +293,11 @@ class AbogadoController extends Controller
     }
     public function estadistica(){
         $tema = $this->getTema(); 
-        $Civil      = DB::select("select count(*) from Abogado where abg_especialidad = 'Civil'");
-        $Penal      = DB::select("select count(*) from Abogado where abg_especialidad = 'Penal'");
-        $Laboral     = DB::select("select count(*) from Abogado where abg_especialidad = 'Laboral'");
-        $Familia = DB::select("select count(*) from Abogado where abg_especialidad = 'Familia'");
+        $Administrador = DB::select("select count(*) from bitacora where bit_accion like '%inicio sesion%'and bit_nombre in ( select email from usuario where rol='Administrador')");
+        $Abogado      = DB::select("select count(*) from bitacora where bit_accion like '%inicio sesion%'and bit_nombre in ( select email from usuario where rol='Abogado')");
+        $Cliente     = DB::select("select count(*) from bitacora where bit_accion like '%inicio sesion%'and bit_nombre in ( select email from usuario where rol='Cliente')");        
 
-        $listaAbogados = [$Civil[0]->count, $Penal[0]->count, $Laboral[0]->count, $Familia[0]->count];
+        $listaAbogados = [$Administrador[0]->count, $Abogado[0]->count, $Cliente[0]->count];
 
         return view('Usuario.GestionarAbogado.estadisticas', compact('tema', 'listaAbogados'));
     }
