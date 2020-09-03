@@ -182,6 +182,18 @@
                     <p>Estadísticas solicitudes</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="{{ route('abogado.estadistica') }}" class="nav-link" id="NavEstAbg">
+                    <i class="fas fa-chart-bar"></i>
+                    <p>Estadísticas Abogado</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('cliente.estadistica') }}" class="nav-link" id="NavEstCli">
+                    <i class="fas fa-chart-bar"></i>
+                    <p>Estadísticas Cliente</p>
+                  </a>
+                </li>
               </ul>
             </li>
             @endif
@@ -342,6 +354,8 @@
             document.getElementById("NavEstadistica").style.color = colorText;//admin
             document.getElementById("NavEstadistica").style.background = colorBG; //admin
             document.getElementById("NavEstSol").style.color = colorText;//admin
+            document.getElementById("NavEstAbg").style.color = colorText;//admin
+            document.getElementById("NavEstCli").style.color = colorText;//admin
           } 
 
           document.getElementById("NavUsuarios").style.background = colorBG; //admin abg

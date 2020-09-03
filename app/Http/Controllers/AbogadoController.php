@@ -134,6 +134,9 @@ class AbogadoController extends Controller
         $tema = $this->getTema();        
         $visitas =$this->updateGetVisitas('abogado_index');
 
+        //mensaje OK!
+        $request->session()->flash('alert-success', 'Abogado registrado con éxito!'); 
+
         return redirect()->route('abogado.index',compact('visitas','tema'));
     }
 
@@ -233,6 +236,9 @@ class AbogadoController extends Controller
          $this->bitacora('Modifico el abogado con ci:'.$Abogado->abg_ci.' y nombre:'.$Abogado->abg_nombre);
          $tema = $this->getTema();        
          $visitas = $this->updateGetVisitas('abogado_index');
+
+        //mensaje OK!
+         $request->session()->flash('alert-success', 'Abogado modificado con éxito!'); 
         return redirect()->route('abogado.index',compact('visitas','tema'));
     }
 
@@ -268,6 +274,7 @@ class AbogadoController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
     }
 
@@ -285,11 +292,7 @@ class AbogadoController extends Controller
         DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email,$accion,$fecha,$hora]);
     }
     public function estadistica(){
-        $tema = [
-            "colora" => auth()->user()->colora,
-            "colorb" => auth()->user()->colorb,
-            "colorc" => auth()->user()->colorc,
-        ];
+        $tema = $this->getTema(); 
         $Civil      = DB::select("select count(*) from Abogado where abg_especialidad = 'Civil'");
         $Penal      = DB::select("select count(*) from Abogado where abg_especialidad = 'Penal'");
         $Laboral     = DB::select("select count(*) from Abogado where abg_especialidad = 'Laboral'");
