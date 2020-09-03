@@ -48,16 +48,16 @@
                                             <img src="{{asset('storage/upload/imagenPpt.png')}}" class="product-image" style="width:500px; height:500px;" >
                                             
                                             @elseif($extensionArchivo === 'jpg' )
-                                            <img src="{{asset('storage/'.$documento[0]->doc_url)}}" class="product-image" style="width:500px; height:500px;" >
+                                            <img src="{{asset('storage/upload/no_image.jpg')}}" class="product-image" style="width:500px; height:500px;" >
                                             
                                             @elseif($extensionArchivo === 'png' )
-                                            <img src="{{asset('storage/'.$documento[0]->doc_url)}}" class="product-image" style="width:500px; height:500px;" >
+                                            <img src="{{asset('storage/upload/no_image.jpg')}}" class="product-image" style="width:500px; height:500px;" >
                                             
                                             @elseif($extensionArchivo === 'jpeg' )
-                                            <img src="{{asset('storage/'.$documento[0]->doc_url)}}" class="product-image" style="width:500px; height:500px;" >
+                                            <img src="{{asset('storage/upload/no_image.jpg')}}" class="product-image" style="width:500px; height:500px;" >
                                             
                                             @elseif($extensionArchivo === 'webp' )
-                                            <img src="{{asset('storage/'.$documento[0]->doc_url)}}" class="product-image" style="width:500px; height:500px;" >
+                                            <img src="{{asset('storage/upload/no_image.jpg')}}" class="product-image" style="width:500px; height:500px;" >
                                             
                                             @else
                                             <img src="{{asset('storage/upload/imagenFile.svg')}}" class="product-image" style="width:500px; height:500px;" >
