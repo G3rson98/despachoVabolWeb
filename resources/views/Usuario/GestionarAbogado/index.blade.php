@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+<h1>Gestionar Abogado</h1>
 <br>
 <div class="flash-message">
     @foreach (['danger', 'warning', 'success', 'info'] as $msg)
@@ -49,7 +50,7 @@
     window.addEventListener("load", function() {
         document.getElementById("texto").addEventListener("keyup", function() {
             //console.log(document.getElementById("texto").value)
-            fetch(`/Abogado/buscador?texto=${document.getElementById("texto").value}`, {
+            fetch(`http://tecnoweb.org.bo/grupo02sa/despachoVabolWeb/public/Abogado/buscador?texto=${document.getElementById("texto").value}`, {
                     method: 'get'
                 })
                 .then(response => response.text())

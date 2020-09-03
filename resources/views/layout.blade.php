@@ -185,7 +185,7 @@
                 <li class="nav-item">
                   <a href="{{ route('abogado.estadistica') }}" class="nav-link" id="NavEstAbg">
                     <i class="fas fa-chart-bar"></i>
-                    <p>Estadísticas Abogado</p>
+                    <p>Estadísticas de Acceso</p>
                   </a>
                 </li>
                 <li class="nav-item">
