@@ -46,16 +46,21 @@
                                             <img src="{{asset('storage/upload/imagenExcel.png')}}" class="product-image" style="width:500px; height:500px;" >
                                             @elseif($extensionArchivo === 'ppt')
                                             <img src="{{asset('storage/upload/imagenPpt.png')}}" class="product-image" style="width:500px; height:500px;" >
+                                            
                                             @elseif($extensionArchivo === 'jpg' )
                                             <img src="{{asset('storage/'.$documento[0]->doc_url)}}" class="product-image" style="width:500px; height:500px;" >
+                                            
                                             @elseif($extensionArchivo === 'png' )
                                             <img src="{{asset('storage/'.$documento[0]->doc_url)}}" class="product-image" style="width:500px; height:500px;" >
+                                            
                                             @elseif($extensionArchivo === 'jpeg' )
                                             <img src="{{asset('storage/'.$documento[0]->doc_url)}}" class="product-image" style="width:500px; height:500px;" >
+                                            
                                             @elseif($extensionArchivo === 'webp' )
                                             <img src="{{asset('storage/'.$documento[0]->doc_url)}}" class="product-image" style="width:500px; height:500px;" >
+                                            
                                             @else
-                                            c class="product-image" style="width:500px; height:500px;" >
+                                            <img src="{{asset('storage/upload/imagenFile.svg')}}" class="product-image" style="width:500px; height:500px;" >
                                             @endif
                                         </div>
                                 </div>
