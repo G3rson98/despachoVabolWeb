@@ -134,6 +134,9 @@ class AbogadoController extends Controller
         $tema = $this->getTema();        
         $visitas =$this->updateGetVisitas('abogado_index');
 
+        //mensaje OK!
+        $request->session()->flash('alert-success', 'Abogado registrado con éxito!'); 
+
         return redirect()->route('abogado.index',compact('visitas','tema'));
     }
 
@@ -171,8 +174,7 @@ class AbogadoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $campos=[
-            'abg_ci' => 'required|string|max:125|unique:abogado',
+        $campos=[            
             'abg_nombre' => 'required|string|max:500',
             'abg_apellidop' => 'required|string',
             'abg_apellidom' => 'required|string',
@@ -184,12 +186,9 @@ class AbogadoController extends Controller
             'abg_genero' => 'required|string',
             'abg_nrocolabogados' => 'required|numeric',
             'abg_nrominjusticia' => 'required|numeric',
-            'abg_numregcorte' => 'required|numeric',
-            'email' => 'required|email|unique:usuario',
+            'abg_numregcorte' => 'required|numeric',            
         ];
-        $Mensaje = [
-            "abg_ci.required" => 'El ci es requerido',
-            "abg_ci.unique" => 'El ci ya existe',
+        $Mensaje = [                        
             "abg_nombre.required" => 'El nombre es requerido',
             "abg_nombre.string" => 'El nombre debe ser una cadena',
             "abg_apellidop.required" => 'El apellido paterno es requerido',
@@ -231,12 +230,15 @@ class AbogadoController extends Controller
         $Abogado->abg_genero = $request['abg_genero'];
         $Abogado->abg_nrocolabogados = $request['abg_nrocolabogados'];
         $Abogado->abg_nrominjusticia = $request['abg_nrominjusticia'];
-        $Abogado->abg_numregcorte = $request['abg_numregcorte'];
-        $Abogado->update();    
+        $Abogado->abg_numregcorte = $request['abg_numregcorte'];        
+        $Abogado->update();
 
          $this->bitacora('Modifico el abogado con ci:'.$Abogado->abg_ci.' y nombre:'.$Abogado->abg_nombre);
          $tema = $this->getTema();        
          $visitas = $this->updateGetVisitas('abogado_index');
+
+        //mensaje OK!
+         $request->session()->flash('alert-success', 'Abogado modificado con éxito!'); 
         return redirect()->route('abogado.index',compact('visitas','tema'));
     }
 
@@ -272,6 +274,7 @@ class AbogadoController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
     }
 
@@ -287,5 +290,16 @@ class AbogadoController extends Controller
         date_default_timezone_set("America/La_Paz");
         $hora = date("G:i:s");        
         DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email,$accion,$fecha,$hora]);
+    }
+    public function estadistica(){
+        $tema = $this->getTema(); 
+        $Civil      = DB::select("select count(*) from Abogado where abg_especialidad = 'Civil'");
+        $Penal      = DB::select("select count(*) from Abogado where abg_especialidad = 'Penal'");
+        $Laboral     = DB::select("select count(*) from Abogado where abg_especialidad = 'Laboral'");
+        $Familia = DB::select("select count(*) from Abogado where abg_especialidad = 'Familia'");
+
+        $listaAbogados = [$Civil[0]->count, $Penal[0]->count, $Laboral[0]->count, $Familia[0]->count];
+
+        return view('Usuario.GestionarAbogado.estadisticas', compact('tema', 'listaAbogados'));
     }
 }

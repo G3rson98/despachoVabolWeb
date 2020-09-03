@@ -117,6 +117,7 @@ class ClienteController extends Controller
         $this->bitacora('Registro un nuevo cliente con nit:'.$request['cl_nit'].'y razon social:'.$request['cl_razonsocial']);
         $tema = $this->getTema();        
         $visitas =$this->updateGetVisitas('cliente_index');
+        $request->session()->flash('alert-success', 'Cliente registrado con éxito!'); 
         return redirect()->route('cliente.index',compact('visitas','tema'));                             
     }
 
@@ -155,8 +156,7 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $campos=[
-            'cl_nit' => 'required|unique:cliente',
+        $campos=[            
             'cl_ciudad' => 'required|string',
             'cl_descripcion' => 'required|string',
             'cl_direccion' => 'required|string|max:125',
@@ -168,8 +168,6 @@ class ClienteController extends Controller
             'cl_telefono' => 'required|numeric',
         ];
         $Mensaje = [            
-            "cl_nit.required" => 'El nit es requerido',
-            "cl_nit.unique" => 'Nit existente por favor intente con otro',
             "cl_ciudad.required" => 'La ciudad es requerido',
             "cl_ciudad.string" => 'La ciudad debe ser una cadena',
             "cl_descripcion.required" => 'La descripcion de la empresa es requerido',
@@ -205,6 +203,7 @@ class ClienteController extends Controller
         $this->bitacora('Modifico el cliente con nit:'.$cliente->cl_nit.' y razon social :'.$cliente->cl_razonsocial);
         $tema = $this->getTema();        
         $visitas = $this->updateGetVisitas('cliente_index');
+        $request->session()->flash('alert-success', 'Cliente modificado con éxito!'); 
         return redirect()->route('cliente.index',compact('visitas','tema'));    
 
     }
@@ -233,6 +232,7 @@ class ClienteController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
     }
 
@@ -248,5 +248,21 @@ class ClienteController extends Controller
         date_default_timezone_set("America/La_Paz");
         $hora = date("G:i:s");        
         DB::insert('insert into bitacora (bit_nombre, bit_accion, bit_fecha, bit_hora) values (?, ?, ?, ?)', [auth()->user()->email,$accion,$fecha,$hora]);
+    }
+    public function buscador(Request $request)
+    {   
+        $Clientes = Cliente::where('cl_nit','like', $request->texto.'%')->get();
+        $tema = $this->getTema();        
+        $visitas = $this->updateGetVisitas('cliente_index');
+        return view('Usuario.GestionarCliente.tableCliente',compact('Clientes','tema','visitas'));
+    }
+    public function estadistica(){
+        $tema = $this->getTema();   
+        $Bolivia      = DB::select("select count(*) from Cliente where cl_pais = 'Bolivia' or cl_pais = 'bolivia'");
+        $Otro      = DB::select("select count(*) from Cliente where cl_pais<>'Bolivia' and cl_pais<>'bolivia'");
+        
+        $listaClientes = [$Bolivia[0]->count, $Otro[0]->count];
+
+        return view('Usuario.GestionarCliente.estadisticas', compact('tema', 'listaClientes'));
     }
 }

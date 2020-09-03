@@ -113,7 +113,7 @@
                                         <option>Administrador</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>                            
                         </div>
                         <div class="form-row">
                             <div class="col-md-6">

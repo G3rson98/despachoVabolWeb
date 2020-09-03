@@ -58,9 +58,9 @@
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
-          <div class="image">            
+          <!-- <div class="image">            
             <img src="{{asset('dist/img/user7-128x128.jpg')}}" class="img-circle elevation-2" alt="User Image">           
-          </div>
+          </div> -->
         </div>
         <div class="user-panel ">
           <div class="info">
@@ -180,6 +180,18 @@
                   <a href="{{ route('solcontacto.estadistica') }}" class="nav-link" id="NavEstSol">
                     <i class="fas fa-chart-bar"></i>
                     <p>Estadísticas solicitudes</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('abogado.estadistica') }}" class="nav-link" id="NavEstAbg">
+                    <i class="fas fa-chart-bar"></i>
+                    <p>Estadísticas Abogado</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('cliente.estadistica') }}" class="nav-link" id="NavEstCli">
+                    <i class="fas fa-chart-bar"></i>
+                    <p>Estadísticas Cliente</p>
                   </a>
                 </li>
               </ul>
@@ -342,6 +354,8 @@
             document.getElementById("NavEstadistica").style.color = colorText;//admin
             document.getElementById("NavEstadistica").style.background = colorBG; //admin
             document.getElementById("NavEstSol").style.color = colorText;//admin
+            document.getElementById("NavEstAbg").style.color = colorText;//admin
+            document.getElementById("NavEstCli").style.color = colorText;//admin
           } 
 
           document.getElementById("NavUsuarios").style.background = colorBG; //admin abg
