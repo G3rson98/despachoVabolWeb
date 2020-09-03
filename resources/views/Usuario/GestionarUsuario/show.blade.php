@@ -42,14 +42,14 @@
                                 <input type="password" class="form-control" name="password_Confirm" id="exampleInputPassword1">
                             </div>
                         </div>
-                        <label>Escoja una foto de perfil:</label>
+                        <!-- <label>Escoja una foto de perfil:</label>
                         <div class="form-group">
                             <input type="file" id="picture" name="picture">
-                        </div>
+                        </div> -->
                         <!-- /.card-body -->
                         <div class="card-footer">
                             <a href="{{url('/dashboard')}}" class="btn btn-danger">Cancelar</a>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary" onclick="return confirm('¿Seguro que desea modificar su contraseña?');">Submit</button>
                         </div>
                     </div>
                 </form>

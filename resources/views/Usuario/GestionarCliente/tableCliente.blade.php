@@ -31,7 +31,7 @@
             <td class="" tabindex="0">
                 <div class="btn-group btn-group-sm">
                     <a href="{{url('Cliente/edit',$Cliente->cl_nit)}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
-                    <a href="{{url('Cliente/destroy',$Cliente->cl_nit)}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                    <a href="{{url('Cliente/destroy',$Cliente->cl_nit)}}" class="btn btn-danger" onclick="return confirm('¿Seguro que desea eliminar el cliente?');"><i class="fas fa-trash"></i></a>
                 </div>
             </td>
         </tr>

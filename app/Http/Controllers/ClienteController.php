@@ -117,6 +117,7 @@ class ClienteController extends Controller
         $this->bitacora('Registro un nuevo cliente con nit:'.$request['cl_nit'].'y razon social:'.$request['cl_razonsocial']);
         $tema = $this->getTema();        
         $visitas =$this->updateGetVisitas('cliente_index');
+        $request->session()->flash('alert-success', 'Cliente registrado con éxito!'); 
         return redirect()->route('cliente.index',compact('visitas','tema'));                             
     }
 
@@ -202,6 +203,7 @@ class ClienteController extends Controller
         $this->bitacora('Modifico el cliente con nit:'.$cliente->cl_nit.' y razon social :'.$cliente->cl_razonsocial);
         $tema = $this->getTema();        
         $visitas = $this->updateGetVisitas('cliente_index');
+        $request->session()->flash('alert-success', 'Cliente modificado con éxito!'); 
         return redirect()->route('cliente.index',compact('visitas','tema'));    
 
     }
@@ -230,6 +232,7 @@ class ClienteController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
     }
 
