@@ -110,7 +110,9 @@
                                 <div class="col-md-3 mb-3 col-md-6">
                                     <select class="custom-select" name="rol" id="validationDefault04" required>
                                         <option selected>Abogado</option>
+                                        @if(auth()->user()->rol === 'Administrador')
                                         <option>Administrador</option>
+                                        @endif
                                     </select>
                                 </div>
                             </div>                            
