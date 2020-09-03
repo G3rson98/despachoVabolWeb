@@ -535,19 +535,19 @@
 								radioBtns[i].handle.checked && (checked = true);
 							});
 
-							if (!checked) {
-							    
-							    // add an error to one element
-							    Object.keys(radioBtns).forEach(function (i) {
-							    	try {
-							    	    message = self.settings.messages[self.settings.locale][ruleName].empty;
-							    	} catch (e) {
-							    	    message = self.messages[self.settings.locale][ruleName].empty;
-							    	}
-							    });
+								if (!checked) {
+									
+									// add an error to one element
+									Object.keys(radioBtns).forEach(function (i) {
+										try {
+											message = self.settings.messages[self.settings.locale][ruleName].empty;
+										} catch (e) {
+											message = self.messages[self.settings.locale][ruleName].empty;
+										}
+									});
 
-							    // set value as for empty rules
-							    value = '';
+									// set value as for empty rules
+									value = '';
 							}
 						break;
 

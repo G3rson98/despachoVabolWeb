@@ -21,6 +21,7 @@ class CategoriaDocumentoController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
 
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['catdocumento_index']);
@@ -38,6 +39,7 @@ class CategoriaDocumentoController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
 
         return view('CategoriaDocumento.create', compact('visitas' ,'tema'));
@@ -87,6 +89,7 @@ class CategoriaDocumentoController extends Controller
             "colora" => auth()->user()->colora,
             "colorb" => auth()->user()->colorb,
             "colorc" => auth()->user()->colorc,
+            "rol" => auth()->user()->rol,
         ];
 
         DB::update('update visitas set numero_visitas=numero_visitas+1 where nombre_pagina = ?', ['catdocumento_edit']);

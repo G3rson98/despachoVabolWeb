@@ -26,11 +26,11 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="catdoc_nombre">Nombre</label>
-                    <input type="text" class="form-control" name="catdoc_nombre" id="catdoc_nombre" placeholder="Ingrese el nombre de la categoría" data-rule="required">
+                    <input type="text" class="form-control" name="catdoc_nombre" id="catdoc_nombre" placeholder="Ingrese el nombre de la categoría" required>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Descripción</label>
-                    <textarea class="form-control" name="catdoc_descripcion" id="catdoc_descripcion" placeholder="Describe la categoría" data-rule="required" ></textarea>
+                    <textarea class="form-control" name="catdoc_descripcion" id="catdoc_descripcion" placeholder="Describe la categoría" data-rule="required" required></textarea>
                 </div>
             </div>
 
@@ -42,16 +42,5 @@
     <div style="display: flex; justify-content: flex-end">
         <h4>Cantidad de visitas: {{ $visitas[0]->numero_visitas }}</h4>
     </div>
-
-    <!-- Append the validator JS script -->
-<script type="text/javascript" src="{{ asset('dist/js/js-form-validator.js') }}"></script>
-
-<script>
-	// Init validator with standart settings
-	new Validator(document.querySelector('#myForm'), function (err, res) {
-        
-		return res;
-	});
-</script>
 
 @endsection()
