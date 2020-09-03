@@ -40,7 +40,7 @@
         }
     </style>
 </head>
-<body>
+<body background = "{{asset('dist/img/photo1.png')}}">
    {{-- NavbarBegin --}}
         <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top" style="height: 90px">
             <div class="container-fluid">

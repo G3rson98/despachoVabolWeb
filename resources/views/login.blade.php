@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
-<body>
+<body background = "{{asset('dist/img/photo1.png')}}">
     <div class="container">
         <hr>
         @if (session()->has('flash'))
@@ -31,7 +31,7 @@
             <div class="card card-primary">
                 <div class="card-header">
                     <h1 class="card-title">
-                        Acceso a la aplicacion
+                        Acceso a la aplicación
                     </h1>
                 </div>
                 <div class="card-body">
