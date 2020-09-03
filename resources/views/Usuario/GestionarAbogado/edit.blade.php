@@ -6,6 +6,17 @@
     <div class="row align-items-center justify-content-center ">
         <div class="col-sm-8">
             <div class="card card-primary">
+                {{-- errores --}}
+                @if (count($errors)>0)
+                <div class="alert alert-default-danger" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li> {{ $error }} </li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                {{-- errores --}}
                 <div class="card-header">
                     <h3 class="card-title">Modificar Abogado</h3>
                 </div>
